@@ -194,9 +194,17 @@ body.dark{overflow:hidden}
   .load-b{width:150px}
   .h-title{font-size:26px}.h-name{font-size:30px}
   .gb{width:260px;height:300px}.gb-body{height:230px}.gb-lid{height:80px}
+  .gb-ribbon-v2{height:140px;width:16px;margin-left:-8px}.gb-hint{font-size:14px;bottom:-36px}.gb-bow{transform:scale(.8);margin-top:-6px}.gb-tail-l,.gb-tail-r{transform:scale(.7)}.gb-rose{transform:scale(.7);margin-left:-35px;top:-32px}
+
+  #musicBox{left:50%;right:auto;transform:translateX(-50%);bottom:8px;align-items:center}.mb-box{width:80px;height:65px}.mb-body{height:46px}.mb-lid{height:22px}.mb-ctrl{width:150px;padding:8px 10px;margin-left:-75px}.mb-vinyl{transform:scale(.55);transform-origin:center center}.mb-key{right:-18px;transform:scale(.65)}.mb-tonearm{transform:scale(.6);transform-origin:top right}.mb-cylinder{display:none!important}.mb-comb{display:none!important}.mb-stage{display:none}.mb-mirror{display:none}.mb-vinyl-glow{display:none!important}
 
   #pbC{height:260px}.ww{width:220px;height:220px}  .balloon-area{height:260px}
   .sig{font-size:16px}.sig-sub{font-size:11px}.btn{padding:8px 16px;font-size:13px}.sec-t{font-size:18px}.candle-count{font-size:13px}.pb-hint{font-size:11px}.pb-area{max-width:100%}
+}
+@media(max-width:360px){
+  .gb{width:220px;height:260px}.gb-body{height:200px}.gb-lid{height:70px}.gb-ribbon-v2{height:120px}.gb-hint{font-size:12px;bottom:-32px}.gb-bow{transform:scale(.65);margin-top:-10px}
+  #musicBox{bottom:4px}.mb-box{width:68px;height:55px}.mb-body{height:40px}.mb-lid{height:18px}.mb-ctrl{width:130px;padding:6px 8px;margin-left:-65px}.mb-key{right:-14px;transform:scale(.55)}.mb-tonearm{transform:scale(.5)}
+  .btn{padding:6px 14px;font-size:12px}
 }
 
 /* ===== SAKURA PETALS ===== */
