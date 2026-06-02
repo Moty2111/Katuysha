@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>✨ С днём рождения, Катя!</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="effects.css">
+<link rel="stylesheet" href="widgets.css">
+<link rel="stylesheet" href="puzzle.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+</head>
+<body>
+
+<!-- ===== FALLING STARS CONTAINER ===== -->
+<div class="stars-container" id="starsContainer"></div>
+
+<!-- ===== MAIN ===== -->
+<div id="main" class="show">
+<!-- ===== BUTTERFLIES ===== -->
+<div class="bfly" id="bfly0"><div class="bfly-inner"><div class="bfly-w bfw-l"><div class="bfw-u"><div class="wv-m"></div><div class="wv-l"></div><div class="wv-r"></div><div class="we-l"></div><div class="we-r"></div></div><div class="we-c"></div><div class="bfw-d"></div></div><div class="bfly-w bfw-r"><div class="bfw-u"><div class="wv-m"></div><div class="wv-l"></div><div class="wv-r"></div><div class="we-l"></div><div class="we-r"></div></div><div class="we-c"></div><div class="bfw-d"></div></div><div class="bfly-b"></div><div class="bfly-a"><span></span></div></div></div>
+<div class="bfly" id="bfly1"><div class="bfly-inner"><div class="bfly-w bfw-l"><div class="bfw-u"><div class="wv-m"></div><div class="wv-l"></div><div class="wv-r"></div><div class="we-l"></div><div class="we-r"></div></div><div class="we-c"></div><div class="bfw-d"></div></div><div class="bfly-w bfw-r"><div class="bfw-u"><div class="wv-m"></div><div class="wv-l"></div><div class="wv-r"></div><div class="we-l"></div><div class="we-r"></div></div><div class="we-c"></div><div class="bfw-d"></div></div><div class="bfly-b"></div><div class="bfly-a"><span></span></div></div></div>
+<div class="bfly" id="bfly2"><div class="bfly-inner"><div class="bfly-w bfw-l"><div class="bfw-u"><div class="wv-m"></div><div class="wv-l"></div><div class="wv-r"></div><div class="we-l"></div><div class="we-r"></div></div><div class="we-c"></div><div class="bfw-d"></div></div><div class="bfly-w bfw-r"><div class="bfw-u"><div class="wv-m"></div><div class="wv-l"></div><div class="wv-r"></div><div class="we-l"></div><div class="we-r"></div></div><div class="we-c"></div><div class="bfw-d"></div></div><div class="bfly-b"></div><div class="bfly-a"><span></span></div></div></div>
+<div class="bfly" id="bfly3"><div class="bfly-inner"><div class="bfly-w bfw-l"><div class="bfw-u"><div class="wv-m"></div><div class="wv-l"></div><div class="wv-r"></div><div class="we-l"></div><div class="we-r"></div></div><div class="we-c"></div><div class="bfw-d"></div></div><div class="bfly-w bfw-r"><div class="bfw-u"><div class="wv-m"></div><div class="wv-l"></div><div class="wv-r"></div><div class="we-l"></div><div class="we-r"></div></div><div class="we-c"></div><div class="bfw-d"></div></div><div class="bfly-b"></div><div class="bfly-a"><span></span></div></div></div>
+<div class="petals" id="petals"></div>
+<canvas id="bgC"></canvas>
+
+<div class="card-cont">
+
+  <div class="hdr">
+    <div class="hdr-orn">✦ ✦ ✦ ✦ ✦</div>
+    <div class="h-title">С днём рождения,<span class="h-name">Катя!</span></div>
+    <div class="h-age">
+      <span class="h-age-s">✧ ✧</span>
+      <div class="h-age-n">19</div>
+      <span class="h-age-s">✧ ✧</span>
+    </div>
+  </div>
+
+  <div class="div"><span class="div-l"></span><span class="div-i">✿</span><span class="div-r"></span></div>
+
+  <div class="wishes">
+    <p>Катя, с днём рождения! 19 лет — это удивительный возраст, когда всё только начинается. Ты вступаешь в самое яркое десятилетие жизни, полное открытий, возможностей и незабываемых моментов.</p>
+    <p>Пусть каждый день дарит тебе повод для улыбки, а мечты сбываются одна за другой. Ты — невероятная, талантливая и сильная, и я верю, что у тебя всё получится!</p>
+    <p>Оставайся такой же искренней, доброй и лёгкой. Цени каждый миг, окружай себя любимыми людьми и никогда не бойся быть собой. Ведь ты — настоящее сокровище!</p>
+    <p>С 19-летием, Катя! Пусть этот год будет самым лучшим!</p>
+  </div>
+
+  <div class="div"><span class="div-l"></span><span class="div-i">✿</span><span class="div-r"></span></div>
+
+  <div class="sec-t">💌 Открытки для тебя</div>
+  <div class="sslider" id="sslider">
+    <div class="sslider-stage" id="ssliderStage">
+      <div class="scard" data-bg="#fce4ec">
+        <div class="scard-inner">
+          <div class="scard-orn scard-orn-tl"></div>
+          <div class="scard-orn scard-orn-tr"></div>
+          <div class="scard-orn scard-orn-bl"></div>
+          <div class="scard-orn scard-orn-br"></div>
+          <div class="scard-crn scard-crn-tl"></div>
+          <div class="scard-crn scard-crn-tr"></div>
+          <div class="scard-crn scard-crn-bl"></div>
+          <div class="scard-crn scard-crn-br"></div>
+          <div class="scard-icon">🌸</div>
+          <div class="scard-line"></div>
+          <div class="scard-ttl">Ты прекрасна</div>
+          <div class="scard-line"></div>
+          <div class="scard-desc">Как этот цветок — нежная, тёплая, неповторимая. Твоя красота в улыбке и добром сердце.</div>
+          <div class="scard-petal"></div>
+          <div class="scard-petal"></div>
+          <div class="scard-petal"></div>
+        </div>
+      </div>
+      <div class="scard" data-bg="#fff8e7">
+        <div class="scard-inner">
+          <div class="scard-orn scard-orn-tl"></div>
+          <div class="scard-orn scard-orn-tr"></div>
+          <div class="scard-orn scard-orn-bl"></div>
+          <div class="scard-orn scard-orn-br"></div>
+          <div class="scard-crn scard-crn-tl"></div>
+          <div class="scard-crn scard-crn-tr"></div>
+          <div class="scard-crn scard-crn-bl"></div>
+          <div class="scard-crn scard-crn-br"></div>
+          <div class="scard-icon">☀️</div>
+          <div class="scard-line"></div>
+          <div class="scard-ttl">Сияй ярко</div>
+          <div class="scard-line"></div>
+          <div class="scard-desc">Ты — свет, который согревает всех вокруг. Пусть твой внутренний огонь горит ещё ярче!</div>
+          <div class="scard-gleam"></div>
+          <div class="scard-gleam"></div>
+        </div>
+      </div>
+      <div class="scard" data-bg="#f0f7ec">
+        <div class="scard-inner">
+          <div class="scard-orn scard-orn-tl"></div>
+          <div class="scard-orn scard-orn-tr"></div>
+          <div class="scard-orn scard-orn-bl"></div>
+          <div class="scard-orn scard-orn-br"></div>
+          <div class="scard-crn scard-crn-tl"></div>
+          <div class="scard-crn scard-crn-tr"></div>
+          <div class="scard-crn scard-crn-bl"></div>
+          <div class="scard-crn scard-crn-br"></div>
+          <div class="scard-icon">💚</div>
+          <div class="scard-line"></div>
+          <div class="scard-ttl">Расцветай</div>
+          <div class="scard-line"></div>
+          <div class="scard-desc">Каждый день — новая глава твоей удивительной истории. Ты только начинаешь свой путь.</div>
+          <div class="scard-leaf"></div>
+          <div class="scard-leaf"></div>
+        </div>
+      </div>
+      <div class="scard" data-bg="#eef5fb">
+        <div class="scard-inner">
+          <div class="scard-orn scard-orn-tl"></div>
+          <div class="scard-orn scard-orn-tr"></div>
+          <div class="scard-orn scard-orn-bl"></div>
+          <div class="scard-orn scard-orn-br"></div>
+          <div class="scard-crn scard-crn-tl"></div>
+          <div class="scard-crn scard-crn-tr"></div>
+          <div class="scard-crn scard-crn-bl"></div>
+          <div class="scard-crn scard-crn-br"></div>
+          <div class="scard-icon">⭐</div>
+          <div class="scard-line"></div>
+          <div class="scard-ttl">Будь звездой</div>
+          <div class="scard-line"></div>
+          <div class="scard-desc">Ты заслуживаешь самого лучшего. Верь в себя, и весь мир поверит в тебя!</div>
+          <div class="scard-spark"></div>
+          <div class="scard-spark"></div>
+        </div>
+      </div>
+      <div class="scard" data-bg="#f5edf8">
+        <div class="scard-inner">
+          <div class="scard-orn scard-orn-tl"></div>
+          <div class="scard-orn scard-orn-tr"></div>
+          <div class="scard-orn scard-orn-bl"></div>
+          <div class="scard-orn scard-orn-br"></div>
+          <div class="scard-crn scard-crn-tl"></div>
+          <div class="scard-crn scard-crn-tr"></div>
+          <div class="scard-crn scard-crn-bl"></div>
+          <div class="scard-crn scard-crn-br"></div>
+          <div class="scard-icon">🎉</div>
+          <div class="scard-line"></div>
+          <div class="scard-ttl">С днём рождения!</div>
+          <div class="scard-line"></div>
+          <div class="scard-desc">Пусть все мечты сбываются, а каждый день приносит радость и счастье!</div>
+          <div class="scard-conf"></div>
+          <div class="scard-conf"></div>
+          <div class="scard-conf"></div>
+        </div>
+      </div>
+    </div>
+    <button class="snav snav-prev" id="snavPrev">
+      <span class="snav-arr"></span>
+      <span class="snav-shadow"></span>
+    </button>
+    <button class="snav snav-next" id="snavNext">
+      <span class="snav-arr"></span>
+      <span class="snav-shadow"></span>
+    </button>
+    <div class="snav-dots" id="snavDots"></div>
+    <div class="snav-count" id="snavCount"></div>
+  </div>
+
+  <div class="div"><span class="div-l"></span><span class="div-i">✿</span><span class="div-r"></span></div>
+
+  <div class="sec-t">🎈 Лопни шарики!</div>
+  <div class="balloon-area" id="balloonArea"><div class="balloon-msg">👆 Кликай по шарикам!</div></div>
+
+  <div class="div"><span class="div-l"></span><span class="div-i">✿</span><span class="div-r"></span></div>
+
+  <div class="sec-t">🎂 Задуй свечу!</div>
+  <div class="cake-area">
+    <canvas id="cake3d" class="cake3d-canvas"></canvas>
+  </div>
+  <div class="candle-count" id="candleCount">👆 Нажми на свечу!</div>
+
+  <div class="div"><span class="div-l"></span><span class="div-i">✿</span><span class="div-r"></span></div>
+
+  <div class="sec-t">🎡 Колесо желаний</div>
+  <button class="btn" onclick="toggleWheel()">🎰 Крутить колесо!</button>
+
+  <div class="div"><span class="div-l"></span><span class="div-i">✿</span><span class="div-r"></span></div>
+
+  <div class="sec-t">🧩 Собери сердце</div>
+  <div class="pb-area">
+    <canvas id="pbC"></canvas>
+    <div class="pb-msg" id="pbMsg"></div>
+  </div>
+  <div class="pb-hint" id="pbHint">👆 Зажми и перетаскивай кусочки сердца в центр!</div>
+
+  <div class="div"><span class="div-l"></span><span class="div-i">✿</span><span class="div-r"></span></div>
+
+  <div class="sec-t">🐉 Беззубик</div>
+  <div class="toothless-area" id="tlArea">
+  </div>
+
+  <div class="div"><span class="div-l"></span><span class="div-i">✿</span><span class="div-r"></span></div>
+
+  <div class="sig">С любовью и теплом</div>
+  <div class="sig-sub">❤️ С днём рождения, Катя! ❤️</div>
+  <button class="btn" onclick='location.href="secret.html"' style="margin-top:6px">✨ Секретная страница</button>
+
+</div>
+</div>
+
+<!-- ===== WHEEL MODAL ===== -->
+<div class="wov" id="wov">
+<div class="wmodal">
+  <h2>🎡 Колесо судьбы</h2>
+  <div class="ws">В 19 лет тебя ждёт…</div>
+  <div class="ww">
+    <canvas id="wcv" width="640" height="640"></canvas>
+    <div class="wptr"></div>
+  </div>
+  <div class="wa">
+    <button class="btn" id="spBtn">🎰 Крутить!</button>
+    <button class="btn gh" onclick="toggleWheel()">✕ Закрыть</button>
+  </div>
+  <div class="rb" id="rb">
+    <div class="rl">✨ Тебя ждёт</div>
+    <div class="rt" id="rt"></div>
+  </div>
+</div>
+</div>
+
+<!-- ===== MUSIC BOX ===== -->
+<div id="musicBox">
+<div class="mb-ctrl" id="mbCtrl">
+  <div class="mb-ctrl-header">
+    <span class="mb-ctrl-title">🎵 Музыкальная шкатулка</span>
+    <button class="mb-ctrl-close" id="mbCtrlClose">✕</button>
+  </div>
+  <div class="mb-ctrl-row">
+    <button class="mb-btn" id="mbPlayBtn">▶</button>
+    <div class="mb-progress" id="mbProg"><div class="mb-progress-f" id="mbProgF"></div></div>
+    <span class="mb-time" id="mbTime">0:00</span>
+  </div>
+  <div class="mb-vol-wrap">
+    <span class="mb-vol-icon">🔊</span>
+    <input type="range" class="mb-vol-slider" id="mbVol" min="0" max="1" step="0.05" value="0.5">
+  </div>
+</div>
+<div class="mb-box" id="mbBox">
+  <div class="mb-box-inner">
+  <div class="mb-body">
+    <div class="mb-body-trim"></div>
+    <div class="mb-body-trim-b"></div>
+    <div class="mb-body-inlay"></div>
+    <div class="mb-body-ornament"></div>
+    <div class="mb-body-ornament-r"></div>
+    <div class="mb-body-staff">
+      <div class="mb-staff-line"></div>
+      <div class="mb-staff-line"></div>
+      <div class="mb-staff-line"></div>
+      <div class="mb-staff-note">♪</div>
+      <div class="mb-staff-note">♫</div>
+    </div>
+    <div class="mb-body-shine"></div>
+    <div class="mb-body-glow"></div>
+    <div class="mb-cylinder">
+      <div class="mb-cyl-inner"></div>
+      <div class="mb-cyl-pin"></div><div class="mb-cyl-pin"></div><div class="mb-cyl-pin"></div>
+      <div class="mb-cyl-pin"></div><div class="mb-cyl-pin"></div><div class="mb-cyl-pin"></div>
+      <div class="mb-cyl-pin"></div><div class="mb-cyl-pin"></div>
+    </div>
+    <div class="mb-comb">
+      <div class="mb-comb-tooth"></div><div class="mb-comb-tooth"></div><div class="mb-comb-tooth"></div>
+      <div class="mb-comb-tooth"></div><div class="mb-comb-tooth"></div><div class="mb-comb-tooth"></div>
+      <div class="mb-comb-tooth"></div><div class="mb-comb-tooth"></div>
+    </div>
+  </div>
+  <div class="mb-lid" id="mbLid">
+    <div class="mb-lid-trim"></div>
+    <div class="mb-lid-inlay"></div>
+    <div class="mb-lid-ornament"></div>
+    <div class="mb-lid-ornament-c"></div>
+    <div class="mb-lid-shine"></div>
+    <div class="mb-lid-glint"></div>
+  </div>
+  <div class="mb-key"><div class="mb-key-stem"></div><div class="mb-key-h"></div></div>
+  <div class="mb-stage"></div>
+  <div class="mb-vinyl" id="mbVinyl">
+    <div class="mb-vinyl-disc">
+      <div class="mb-vinyl-grooves"></div>
+      <div class="mb-vinyl-glow"></div>
+      <div class="mb-vinyl-label">
+        <div class="mb-vinyl-label-inner"></div>
+        <div class="mb-vinyl-label-ring"></div>
+        <div class="mb-vinyl-hole"></div>
+        <div class="mb-vinyl-text">К</div>
+        <div class="mb-vinyl-text-s">♫</div>
+      </div>
+      <div class="mb-vinyl-shine"></div>
+      <div class="mb-vinyl-shine2"></div>
+      <div class="mb-vinyl-edge"></div>
+    </div>
+    <div class="mb-tonearm">
+      <div class="mb-tonearm-base"></div>
+      <div class="mb-tonearm-arm-lower"></div>
+      <div class="mb-tonearm-pivot"></div>
+      <div class="mb-tonearm-arm-upper">
+        <div class="mb-tonearm-headshell"></div>
+        <div class="mb-tonearm-needle"></div>
+      </div>
+    </div>
+  </div>
+  <div class="mb-mirror"></div>
+  <div class="mb-pedestal"></div>
+  <div class="mb-notes" id="mbNotes"></div>
+  </div>
+</div>
+</div>
+
+<!-- ===== FIREWORK OVERLAY ===== -->
+<div class="fw-overlay" id="fwOverlay">
+  <div class="fw-sparkles" id="fwSparkles"></div>
+  <div>
+    <div class="fw-text">🎉 Ты нашла все рисунки! 🎉</div>
+    <div class="fw-sub">С днём рождения, Катя! ✨</div>
+  </div>
+</div>
+
+<div class="scroll-progress" id="scrollProg"></div>
+<button class="scroll-top" id="scrollTop"></button>
+
+<div class="page-transition active" id="pageTransition"></div>
+<script src="confetti.js"></script>
+<script src="effects.js"></script>
+<script src="widgets.js"></script>
+<script src="puzzle.js"></script>
+</body>
+</html>

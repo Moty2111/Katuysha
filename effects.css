@@ -1,0 +1,71 @@
+/* ===== BUTTERFLIES ===== */
+.bfly{position:fixed;z-index:1499;pointer-events:auto;cursor:pointer;opacity:0;transition:opacity .8s;user-select:none;perspective:800px;width:80px;height:70px}
+.bfly.show{opacity:1}
+.bfly.bg{position:absolute;left:0;top:0;z-index:0;pointer-events:none;cursor:default;opacity:.55}
+.bfly.bg .bfly-inner{animation:bflyBobBg 8s ease-in-out infinite}
+@keyframes bflyBobBg{0%,100%{transform:translateY(0) rotate(0)}30%{transform:translateY(-6px) rotate(1deg)}70%{transform:translateY(3px) rotate(-1deg)}}
+.bfly.bg .bfly-w{animation:wFlapBg 1.5s ease-in-out infinite alternate}
+@keyframes wFlapBg{0%{transform:rotateY(0deg) scaleX(1)}100%{transform:rotateY(15deg) scaleX(.9)}}
+.bfly-inner{position:absolute;inset:0;transform-style:preserve-3d;animation:bflyBob 5s ease-in-out infinite}
+@keyframes bflyBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+/* Wings with perspective and detail */
+.bfly-w{position:absolute;top:10px;width:36px;height:44px;transform-style:preserve-3d;animation:wFlap .8s ease-in-out infinite alternate}
+.bfw-l{left:0;transform-origin:right 60%}
+.bfw-r{right:0;transform-origin:left 60%}
+.bfw-u,.bfw-d{position:absolute;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;overflow:hidden}
+.bfw-u{width:36px;height:30px;top:0}
+.bfw-u:before{content:'';position:absolute;inset:0;background:var(--wc1,#f0a0c0);border-radius:inherit}
+.bfw-u:after{content:'';position:absolute;top:2px;left:2px;right:2px;bottom:2px;
+  background:
+    radial-gradient(ellipse at 40% 25%,rgba(255,255,255,.25),transparent 55%),
+    radial-gradient(ellipse at 55% 50%,rgba(255,255,255,.06),transparent),
+    repeating-linear-gradient(55deg,transparent,transparent 3px,rgba(0,0,0,.02) 3px,rgba(0,0,0,.02) 4px);
+  border-radius:inherit;z-index:1}
+/* Wing veins */
+.bfw-u .wv-l,.bfw-u .wv-r{position:absolute;top:1px;width:1.5px;height:24px;background:linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.1),rgba(0,0,0,.04));border-radius:1px;z-index:2;transform-origin:center top}
+.bfw-u .wv-l{left:28%;transform:rotate(-18deg)}
+.bfw-u .wv-r{right:28%;transform:rotate(18deg)}
+.bfw-u .wv-m{position:absolute;top:1px;left:50%;margin-left:-.5px;width:1px;height:26px;background:rgba(0,0,0,.07);z-index:2}
+.bfw-u .wv-m:after{content:'';position:absolute;top:4px;left:-1px;width:3px;height:3px;border-radius:50%;background:rgba(0,0,0,.05)}
+/* Wing edge spots */
+.bfw-u .we-l,.bfw-u .we-r{position:absolute;width:7px;height:7px;border-radius:50%;z-index:2}
+.bfw-u .we-l{bottom:4px;left:3px;background:radial-gradient(circle,var(--wc2,#d06080),transparent 70%);opacity:.5}
+.bfw-u .we-r{bottom:4px;right:3px;background:radial-gradient(circle,var(--wc2,#d06080),transparent 70%);opacity:.5}
+.bfw-u .we-c{position:absolute;bottom:10px;left:50%;margin-left:-2px;width:5px;height:5px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.15),transparent);z-index:2}
+/* Lower wing detail */
+.bfw-d:after{content:'';position:absolute;top:2px;left:3px;right:3px;bottom:2px;
+  background:
+    radial-gradient(ellipse at 40% 30%,rgba(255,255,255,.12),transparent),
+    repeating-linear-gradient(50deg,transparent,transparent 2px,rgba(0,0,0,.015) 2px,rgba(0,0,0,.015) 3px);
+  border-radius:inherit;z-index:1}
+/* Lower wing */
+.bfw-d{width:26px;height:18px;bottom:0;left:5px}
+.bfw-d:before{content:'';position:absolute;inset:0;background:var(--wc2,#e888a8);border-radius:inherit}
+.bfw-d:after{content:'';position:absolute;top:2px;left:3px;right:3px;bottom:2px;background:radial-gradient(ellipse at 40% 30%,rgba(255,255,255,.12),transparent);border-radius:inherit;z-index:1}
+/* Wing flap */
+@keyframes wFlap{0%{transform:rotateY(0deg) scaleX(1)}100%{transform:rotateY(35deg) scaleX(.8)}}
+.bfw-r{animation-delay:-.1s}
+/* Body */
+.bfly-b{position:absolute;top:18px;left:50%;margin-left:-4px;width:8px;height:28px;background:linear-gradient(180deg,#2a1a18,#4a2a28 50%,#3a1a18);border-radius:50%;z-index:3;box-shadow:0 2px 6px rgba(0,0,0,.12)}
+.bfly-b:before{content:'';position:absolute;top:-4px;left:50%;margin-left:-4px;width:8px;height:8px;background:radial-gradient(circle at 40% 30%,#3a2a28,#1a0a08);border-radius:50%;box-shadow:inset 0 1px 2px rgba(255,255,255,.06)}
+.bfly-b:after{content:'';position:absolute;top:6px;left:2px;width:2px;height:2px;background:rgba(255,255,255,.08);border-radius:50%}
+/* Antennae */
+.bfly-a{position:absolute;top:6px;left:50%;margin-left:-8px;width:16px;height:20px;z-index:4;pointer-events:none}
+.bfly-a:before,.bfly-a:after{content:'';position:absolute;top:0;width:1.5px;height:18px;background:#3a2a28;border-radius:2px}
+.bfly-a:before{left:3px;transform:rotate(-25deg)}
+.bfly-a:after{right:3px;transform:rotate(25deg)}
+.bfly-a span{position:absolute;top:-2px;left:1px;right:1px;height:3px;border-radius:50%;background:radial-gradient(circle,#3a2a28,transparent 70%)}
+/* Pop */
+.bfly.pop{animation:bflyPop .5s ease forwards;pointer-events:none}
+@keyframes bflyPop{0%{transform:scale(1) rotate(0);opacity:1}20%{transform:scale(1.6) rotateY(180deg);opacity:.8}50%{transform:scale(.8) rotateY(360deg);opacity:.5}100%{transform:scale(0) rotateY(540deg);opacity:0}}
+
+/* ===== FALLING STARS ===== */
+.stars-container{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.star-el{position:absolute;font-size:18px;opacity:0;animation:starF var(--sd,1.5s) linear forwards;pointer-events:none;filter:drop-shadow(0 0 10px rgba(255,215,0,.3))}
+@keyframes starF{0%{opacity:0;transform:translateY(0) translateX(0) scale(.5)}5%{opacity:1}50%{opacity:1}95%{opacity:1}100%{opacity:0;transform:translateY(var(--sy,300px)) translateX(var(--sx,100px)) scale(1)}}
+
+/* ===== GIFT PAGE SPARKLES ===== */
+.gift-sparkle{position:absolute;border-radius:50%;pointer-events:none;opacity:0;animation:sparkleUp linear forwards;z-index:2}
+@keyframes sparkleUp{0%{opacity:0;transform:translateY(0) scale(.3)}15%{opacity:.9}70%{opacity:.6}100%{opacity:0;transform:translateY(-250px) scale(.1)}}
+.star-trail{position:absolute;width:80px;height:2px;background:linear-gradient(90deg,rgba(255,215,0,.4),transparent);border-radius:1px;top:50%;right:100%;opacity:0;animation:trailF var(--sd,1.5s) linear forwards}
+@keyframes trailF{0%{opacity:0}5%{opacity:1}50%{opacity:.8}95%{opacity:.1}100%{opacity:0}}
