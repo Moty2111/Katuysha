@@ -158,23 +158,34 @@ body.dark{overflow:hidden}
   .load-t{font-size:15px}
   .load-b{width:180px}
   .h-title{font-size:32px}.h-name{font-size:38px}.h-age-n{width:50px;height:50px;font-size:24px}
+  .hdr-orn{font-size:12px;letter-spacing:8px}.h-age-s{font-size:12px}
+  .h-age{gap:8px}.h-age-n:after{bottom:-16px;font-size:10px}
+  .h-age-s{letter-spacing:4px}
+  .wishes p{font-size:16px}
+  .card-cont{gap:14px;padding:10px 4px 30px}
+  #main{padding:12px 6px}
+  .sec-t{font-size:20px}.sig{font-size:20px}
+  .sig-sub{font-size:12px}.btn{padding:10px 20px;font-size:14px}.candle-count{font-size:14px}
   .gb{width:300px;height:340px}.gb-body{height:260px}.gb-lid{height:90px}
   .gb-ribbon-v{width:22px;margin-left:-11px}.gb-ribbon-h{height:22px}.gb-ribbon-v2{width:18px;margin-left:-9px;height:160px}
-
+  .gb-hint{font-size:14px;bottom:-38px}.gb-bow{transform:scale(.8);margin-top:-4px}.gb-tail-l,.gb-tail-r{transform:scale(.8)}.gb-rose{transform:scale(.7);margin-left:-32px;top:-30px}
+  .gb-wrap{margin-top:40px}
+  .side-rose-wrap{display:none}
+  .cake-area{padding:12px 16px 20px;margin:28px 0;min-height:260px}
+  .cake3d-canvas{min-height:220px}
   #pbC{height:320px}.wmodal{padding:24px 18px}.ww{width:260px;height:260px}
   .wmodal h2{font-size:22px}
   .wptr{top:-10px;margin-left:-12px;border-left:12px solid transparent;border-right:12px solid transparent;border-top:24px solid #8b1a2b}
+  .pb-hint{font-size:12px}.pb-hud{font-size:13px;top:10px;right:10px;padding:6px 12px}
+  .pb-msg{font-size:14px;padding:10px 16px;white-space:normal}
   #musicBox{bottom:12px;right:20px;left:auto}.mb-box{width:100px;height:80px}.mb-body{height:58px}.mb-lid{height:30px}
-
   .mb-ctrl{width:160px;padding:10px 12px;margin-left:-80px}.mb-vinyl{transform:scale(.7);transform-origin:center center}
   .mb-cylinder{display:none !important}.mb-mirror{display:none}.mb-comb{display:none !important}.mb-stage{display:none}
   .mb-key{right:-22px;transform:scale(.8)}.mb-tonearm{transform:scale(.7);transform-origin:top right}
-  .mb-vinyl-glow{display:none!important}
-  .fw-text{font-size:30px}.card-cont{gap:14px;padding:10px 4px 30px}.wishes p{font-size:16px}
-  .side-rose-wrap{display:none}.balloon-area{height:320px;margin:2px 0 16px}.sec-t{font-size:20px}.cake-area{padding:12px 16px 20px;margin:28px 0;min-height:260px}
-  #main{padding:12px 6px}.hdr-orn{font-size:12px;letter-spacing:8px}.h-age-s{font-size:12px}
-  .pb-hint{font-size:12px}.pb-hud{font-size:13px;top:10px;right:10px;padding:6px 12px}.sig{font-size:20px}
-  .sig-sub{font-size:12px}.btn{padding:10px 20px;font-size:14px}.sec-t{font-size:20px}.candle-count{font-size:14px}
+  .mb-vinyl-glow{display:none!important}.mb-btn{width:34px;height:34px}.mb-vol-slider{width:50px}
+  .fw-text{font-size:30px}.fw-sub{font-size:16px}
+  .balloon-area{height:320px;margin:2px 0 16px}.balloon-msg{font-size:14px}
+  .bfly{width:56px;height:50px}
 }
 @media(max-width:420px){
   .bud-wrap{width:220px;height:260px}
@@ -193,18 +204,79 @@ body.dark{overflow:hidden}
   .load-t{font-size:13px}
   .load-b{width:150px}
   .h-title{font-size:26px}.h-name{font-size:30px}
+  .h-age-n{width:44px;height:44px;font-size:22px}
+  .hdr-orn{font-size:10px;letter-spacing:6px}.h-age-s{font-size:11px;letter-spacing:3px}
+  .h-age{gap:6px}.h-age-n:after{bottom:-14px;font-size:9px}
+  .wishes p{font-size:15px}
+  .card-cont{gap:10px;padding:8px 4px 24px}
+  #main{padding:10px 6px}
+  .sec-t{font-size:18px}.sig{font-size:16px}.sig-sub{font-size:11px}
+  .btn{padding:8px 16px;font-size:13px}.candle-count{font-size:13px}
   .gb{width:260px;height:300px}.gb-body{height:230px}.gb-lid{height:80px}
-  .gb-ribbon-v2{height:140px;width:16px;margin-left:-8px}.gb-hint{font-size:14px;bottom:-36px}.gb-bow{transform:scale(.8);margin-top:-6px}.gb-tail-l,.gb-tail-r{transform:scale(.7)}.gb-rose{transform:scale(.7);margin-left:-35px;top:-32px}
-
-  #musicBox{left:50%;right:auto;transform:translateX(-50%);bottom:8px;align-items:center}.mb-box{width:80px;height:65px}.mb-body{height:46px}.mb-lid{height:22px}.mb-ctrl{width:150px;padding:8px 10px;margin-left:-75px}.mb-vinyl{transform:scale(.55);transform-origin:center center}.mb-key{right:-18px;transform:scale(.65)}.mb-tonearm{transform:scale(.6);transform-origin:top right}.mb-cylinder{display:none!important}.mb-comb{display:none!important}.mb-stage{display:none}.mb-mirror{display:none}.mb-vinyl-glow{display:none!important}
-
-  #pbC{height:260px}.ww{width:220px;height:220px}  .balloon-area{height:260px}
-  .sig{font-size:16px}.sig-sub{font-size:11px}.btn{padding:8px 16px;font-size:13px}.sec-t{font-size:18px}.candle-count{font-size:13px}.pb-hint{font-size:11px}.pb-area{max-width:100%}
+  .gb-ribbon-v{width:20px;margin-left:-10px}.gb-ribbon-h{height:20px}
+  .gb-ribbon-v2{height:140px;width:16px;margin-left:-8px}
+  .gb-hint{font-size:14px;bottom:-36px}.gb-bow{transform:scale(.7);margin-top:-6px}.gb-tail-l,.gb-tail-r{transform:scale(.65)}.gb-rose{transform:scale(.6);margin-left:-28px;top:-28px}
+  .gb-wrap{margin-top:30px}
+  .cake-area{padding:10px 12px 18px;margin:18px 0 12px;min-height:240px}
+  .cake3d-canvas{min-height:180px}
+  #pbC{height:260px}.ww{width:220px;height:220px}
+  .wmodal{padding:20px 16px}.wmodal h2{font-size:20px}
+  .wptr{top:-8px;margin-left:-10px;border-left:10px solid transparent;border-right:10px solid transparent;border-top:20px solid #8b1a2b}
+  .pb-hint{font-size:11px}.pb-hud{font-size:12px;top:8px;right:8px;padding:4px 10px}
+  .pb-msg{font-size:13px;padding:8px 14px;white-space:normal}.pb-area{max-width:100%}
+  #musicBox{left:50%;right:auto;transform:translateX(-50%);bottom:8px;align-items:center}.mb-box{width:80px;height:65px}.mb-body{height:46px}.mb-lid{height:22px}
+  .mb-ctrl{width:150px;padding:8px 10px;margin-left:-75px}.mb-vinyl{transform:scale(.55);transform-origin:center center}
+  .mb-key{right:-18px;transform:scale(.65)}.mb-tonearm{transform:scale(.6);transform-origin:top right}
+  .mb-cylinder{display:none!important}.mb-comb{display:none!important}.mb-stage{display:none}.mb-mirror{display:none}.mb-vinyl-glow{display:none!important}
+  .mb-btn{width:30px;height:30px}.mb-vol-slider{width:40px}
+  .fw-text{font-size:24px}.fw-sub{font-size:14px}
+  .balloon-area{height:260px}.balloon-msg{font-size:13px}
+  .bfly{width:44px;height:38px}
 }
 @media(max-width:360px){
-  .gb{width:220px;height:260px}.gb-body{height:200px}.gb-lid{height:70px}.gb-ribbon-v2{height:120px}.gb-hint{font-size:12px;bottom:-32px}.gb-bow{transform:scale(.65);margin-top:-10px}
-  #musicBox{bottom:4px}.mb-box{width:68px;height:55px}.mb-body{height:40px}.mb-lid{height:18px}.mb-ctrl{width:130px;padding:6px 8px;margin-left:-65px}.mb-key{right:-14px;transform:scale(.55)}.mb-tonearm{transform:scale(.5)}
-  .btn{padding:6px 14px;font-size:12px}
+  .bud-wrap{width:180px;height:220px}
+  .bud-stem{top:50px;height:140px}
+  .bud-stem-l{width:26px;height:8px}
+  .bud-stem-l:nth-child(2){top:100px}
+  .bud-stem-l:nth-child(3){top:130px;left:calc(50% - 27px)}
+  .bud-stem-l:nth-child(4){top:155px}
+  .bud-stem-l:nth-child(5){top:170px;left:calc(50% - 27px)}
+  .bud-sep{top:46px;width:12px;height:18px}
+  .bp0{width:34px;height:44px;margin:-38px 0 0 -17px}
+  .bp1,.bp2{width:38px;height:48px;margin:-41px 0 0 -19px}
+  .bp3,.bp4{width:34px;height:42px;margin:-38px 0 0 -17px}
+  .bp5,.bp6{width:28px;height:36px;margin:-32px 0 0 -14px}
+  .bp7,.bp8{width:22px;height:30px;margin:-26px 0 0 -11px}
+  .load-t{font-size:12px}
+  .load-b{width:130px}
+  .h-title{font-size:22px}.h-name{font-size:24px}
+  .h-age-n{width:40px;height:40px;font-size:20px}
+  .hdr-orn{font-size:9px;letter-spacing:5px}.h-age-s{font-size:10px;letter-spacing:3px}
+  .h-age{gap:4px}.h-age-n:after{bottom:-12px;font-size:8px}
+  .wishes p{font-size:14px}
+  .card-cont{gap:8px;padding:6px 4px 20px}
+  #main{padding:8px 4px}
+  .sec-t{font-size:16px}.sig{font-size:14px}.sig-sub{font-size:10px}
+  .btn{padding:6px 14px;font-size:12px}.candle-count{font-size:12px}
+  .gb{width:220px;height:260px}.gb-body{height:200px}.gb-lid{height:70px}
+  .gb-ribbon-v{width:18px;margin-left:-9px}.gb-ribbon-h{height:18px}
+  .gb-ribbon-v2{height:120px;width:14px;margin-left:-7px}
+  .gb-hint{font-size:12px;bottom:-32px}.gb-bow{transform:scale(.6);margin-top:-10px}.gb-tail-l,.gb-tail-r{transform:scale(.55)}.gb-rose{transform:scale(.5);margin-left:-22px;top:-24px}
+  .gb-wrap{margin-top:20px}
+  .cake-area{padding:8px 10px 14px;margin:12px 0 8px;min-height:200px}
+  .cake3d-canvas{min-height:150px}
+  #pbC{height:200px}.ww{width:200px;height:200px}
+  .wmodal{padding:16px 12px}.wmodal h2{font-size:18px}
+  .wptr{top:-7px;margin-left:-9px;border-left:9px solid transparent;border-right:9px solid transparent;border-top:18px solid #8b1a2b}
+  .pb-hint{font-size:10px}.pb-hud{font-size:11px;top:6px;right:6px;padding:4px 8px}
+  .pb-msg{font-size:12px;padding:6px 12px;white-space:normal}
+  #musicBox{bottom:4px}.mb-box{width:68px;height:55px}.mb-body{height:40px}.mb-lid{height:18px}
+  .mb-ctrl{width:130px;padding:6px 8px;margin-left:-65px}.mb-vinyl{transform:scale(.5);transform-origin:center center}
+  .mb-key{right:-14px;transform:scale(.55)}.mb-tonearm{transform:scale(.5)}
+  .mb-btn{width:28px;height:28px}.mb-vol-slider{width:36px}
+  .fw-text{font-size:22px}.fw-sub{font-size:12px}
+  .balloon-area{height:200px;margin:2px 0 8px}.balloon-msg{font-size:12px}
+  .bfly{width:38px;height:32px}
 }
 
 /* ===== SAKURA PETALS ===== */
