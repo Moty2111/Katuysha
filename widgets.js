@@ -1037,7 +1037,14 @@ if(document.getElementById('wcv')){(function(){
 })();
 window.toggleWheel=function(){
   var w=document.getElementById('wov');
-  if(w)w.classList.toggle('on');
+  if(w){
+    w.classList.toggle('on');
+    if(w.classList.contains('on')){
+      document.body.classList.add('modal-open');
+    }else{
+      document.body.classList.remove('modal-open');
+    }
+  }
 };
 var wovEl=document.getElementById('wov');
 if(wovEl){
@@ -1353,8 +1360,12 @@ if(spBtn)spBtn.addEventListener('click',function(){window.spinWheel()});}
 function initMusic(){
   var audio=new Audio('Для тебя.mp3');
   window._audioEl=audio;
-  audio.loop=true;
+  audio.loop=true;document.body.appendChild(audio);
+  audio.addEventListener('error',function(){mbBox.style.background='red'});
   var isPlaying=false;
+  var _mbPlaying=false;
+  audio.addEventListener('play',function(){_mbPlaying=true});
+  audio.addEventListener('pause',function(){_mbPlaying=false});
   var mbBox=document.getElementById('mbBox');
   var mbCtrl=document.getElementById('mbCtrl');
   var mbPlayBtn=document.getElementById('mbPlayBtn');
@@ -1368,7 +1379,7 @@ function initMusic(){
   var giftBox=document.getElementById('giftBox');
 
   musicBox.classList.add('show');
-  audio.volume=0.3;
+  audio.volume=0.5;
 
   // Notes
   for(var i=0;i<5;i++){
@@ -1393,11 +1404,11 @@ function initMusic(){
     var pp=audio.play();
     if(pp&&pp.then){
       pp.then(function(){
-        isPlaying=true;mbPlayBtn.textContent='⏸';
+        isPlaying=true;_mbPlaying=true;mbPlayBtn.textContent='⏸';mbBox.classList.add('playing');
         fadeIn(audio,0.5,2000);
       }).catch(function(){});
     }else if(pp===undefined){
-      isPlaying=true;mbPlayBtn.textContent='⏸';
+      isPlaying=true;_mbPlaying=true;mbPlayBtn.textContent='⏸';mbBox.classList.add('playing');
       audio.volume=0.5;
     }
   }
@@ -1409,7 +1420,7 @@ function initMusic(){
       document.removeEventListener('click',onTap);
       document.removeEventListener('touchstart',onTap);
       audio.play().then(function(){
-        isPlaying=true;mbPlayBtn.textContent='⏸';
+        isPlaying=true;_mbPlaying=true;mbPlayBtn.textContent='⏸';mbBox.classList.add('playing');
         if(audio.volume<0.4){
           (function fade(){var v=audio.volume;if(v<0.5){audio.volume=Math.min(v+0.05,0.5);setTimeout(fade,120)}})();
         }
@@ -1419,7 +1430,7 @@ function initMusic(){
     document.addEventListener('touchstart',onTap);
   }
   function retryPlay(){
-    mbPlayBtn.textContent='▶';
+    mbPlayBtn.textContent='▶';mbBox.classList.remove('playing');
     if(_userGestured){
       doPlay();
     }else{
@@ -1429,26 +1440,26 @@ function initMusic(){
   var playPromise=audio.play();
   if(playPromise!==undefined){
     playPromise.then(function(){
-      isPlaying=true;mbPlayBtn.textContent='⏸';
+      isPlaying=true;_mbPlaying=true;mbPlayBtn.textContent='⏸';mbBox.classList.add('playing');
       fadeIn(audio,0.5,2000);
     }).catch(function(){
-      // Show control panel so user can tap play
       mbCtrl.classList.add('show');
       mbPlayBtn.style.animation='mbPulse 1.2s ease-in-out infinite';
-      // First tap anywhere on page starts music
-      waitForTap();
-      // Retry loop for ~10s after any user gesture
-      var retryCount=0;
-      var retryTimer=setInterval(function(){
-        retryCount++;
-        if(retryCount>30||!audio.paused){clearInterval(retryTimer);return}
-        audio.play().then(function(){
-          clearInterval(retryTimer);
-          isPlaying=true;mbPlayBtn.textContent='⏸';
-          mbPlayBtn.style.animation='';
-          fadeIn(audio,0.5,2000);
-        }).catch(function(){});
-      },300);
+      // On non-touch devices, first tap anywhere starts music
+      if(!('ontouchstart' in window)){
+        waitForTap();
+        var retryCount=0;
+        var retryTimer=setInterval(function(){
+          retryCount++;
+          if(retryCount>30||!audio.paused){clearInterval(retryTimer);return}
+          audio.play().then(function(){
+            clearInterval(retryTimer);
+            isPlaying=true;_mbPlaying=true;mbPlayBtn.textContent='⏸';mbBox.classList.add('playing');
+            mbPlayBtn.style.animation='';
+            fadeIn(audio,0.5,2000);
+          }).catch(function(){});
+        },300);
+      }
     });
   }
 
@@ -1465,26 +1476,30 @@ function initMusic(){
   function updateVolSlider(v){mbVol.style.backgroundSize=(v*100)+'% 100%';mbVol.style.backgroundRepeat='no-repeat'}
   updateVolSlider(0.5);
 
-  mbBox.addEventListener('click',function(e){
-    if(giftBox&&giftBox.classList.contains('show'))return;
-    if(!('ontouchstart' in window))e.stopPropagation();
-    if(audio.paused){
-      audio.play().then(function(){}).catch(function(){});
-      isPlaying=true;mbPlayBtn.textContent='⏸';
-      mbBox.classList.add('open');
+  var _clickLock=false;
+  function togglePlay(e){
+    if(_clickLock)return;
+    _clickLock=true;setTimeout(function(){_clickLock=false},300);
+    e.stopPropagation();
+    if(!_mbPlaying){
+      audio.play().then(function(){
+        isPlaying=true;mbPlayBtn.textContent='⏸';mbBox.classList.add('playing');
+        mbBox.classList.add('open');
+      }).catch(function(){});
     }else{
-      audio.pause();isPlaying=false;mbPlayBtn.textContent='▶';
+      audio.pause();_mbPlaying=false;isPlaying=false;mbPlayBtn.textContent='▶';mbBox.classList.remove('playing');
     }
-  });
+  }
+  mbBox.addEventListener('click',togglePlay);
 
   mbPlayBtn.addEventListener('click',function(e){
     e.stopPropagation();
     if(audio.paused){
       audio.play().then(function(){}).catch(function(){});
-      isPlaying=true;mbPlayBtn.textContent='⏸';
+      isPlaying=true;_mbPlaying=true;mbPlayBtn.textContent='⏸';mbBox.classList.add('playing');
       mbBox.classList.add('open');
     }else{
-      audio.pause();isPlaying=false;mbPlayBtn.textContent='▶';
+      audio.pause();_mbPlaying=false;isPlaying=false;mbPlayBtn.textContent='▶';mbBox.classList.remove('playing');
     }
   });
 

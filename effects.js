@@ -101,13 +101,41 @@ if(document.getElementById('bgC')){(function(){
   if(!bfs.length)return;
   bfs.forEach(function(b,i){
     var dur=10+Math.random()*14;
-    var x=5+Math.random()*90;
-    var y=5+Math.random()*90;
+    var x=i%2===0?Math.random()*30:70+Math.random()*25;
+    var y=i<2?5+Math.random()*20:65+Math.random()*30;
     var sway=20+Math.random()*60;
+    var colors=[
+      {wc1:'#f0a0c0',wc2:'#d06080'},{wc1:'#f0d0a0',wc2:'#d0a060'},
+      {wc1:'#a0c0f0',wc2:'#6080d0'},{wc1:'#c0e0a0',wc2:'#80c060'},
+      {wc1:'#e0a0f0',wc2:'#b060d0'},{wc1:'#f0d080',wc2:'#d0a040'}
+    ];
+    var c=colors[i%colors.length];
+    b.style.setProperty('--wc1',c.wc1);b.style.setProperty('--wc2',c.wc2);
     b.style.setProperty('--bx',x+'%');b.style.setProperty('--by',y+'%');
     b.style.setProperty('--sway',sway+'px');b.style.setProperty('--dur',dur+'s');
     b.style.animationDelay=(i*2+Math.random()*3)+'s';
+    setTimeout(function(){b.classList.add('show')},1000+i*400);
   });
+})();
+
+// ===== BUTTERFLY SCROLL FADE =====
+(function(){
+  var bflies=document.querySelectorAll('.bfly');
+  if(!bflies.length)return;
+  function updateBflyOpacity(){
+    var scrollTop=window.pageYOffset||document.documentElement.scrollTop;
+    var fadeDist=window.innerHeight*0.4;
+    if(fadeDist<1)fadeDist=1;
+    var progress=Math.min(scrollTop/fadeDist,1);
+    var opacity=0.55*(1-progress);
+    for(var i=0;i<bflies.length;i++){
+      if(bflies[i].classList.contains('show')){
+        bflies[i].style.opacity=opacity.toString();
+      }
+    }
+  }
+  window.addEventListener('scroll',updateBflyOpacity,{passive:true});
+  updateBflyOpacity();
 })();
 
 // ===== FALLING STARS / SPARKLES =====
@@ -170,3 +198,19 @@ if(document.getElementById('bgC')){(function(){
     cont.appendChild(p);
   }
 })();
+
+// ===== MOBILE: PREVENT CONTEXT MENU ON INTERACTIVE ELEMENTS =====
+document.addEventListener('contextmenu',function(e){
+  var t=e.target;
+  if(t.closest&&(t.closest('.btn')||t.closest('.gb')||t.closest('.toothless-area')||t.closest('.mb-box')||t.closest('#pbC')||t.closest('#wcv')||t.closest('.scroll-top')||t.closest('.bfly'))){
+    e.preventDefault();
+  }
+});
+
+// ===== MOBILE: PREVENT PINCH-ZOOM ON INTERACTIVE AREAS =====
+document.addEventListener('gesturestart',function(e){
+  var t=e.target;
+  if(t.closest&&(t.closest('.toothless-area')||t.closest('.gb')||t.closest('#pbC'))){
+    e.preventDefault();
+  }
+});

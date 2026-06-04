@@ -17,7 +17,7 @@ function initPaintbrush(){
 
   function initPuzzle(){
     heartS=Math.min(w,h)/32;
-    heartCx=w*.48;heartCy=h*.48;
+    heartCx=w/2;heartCy=h/2;
     pieces=[];
     placedCount=0;completed=false;
     var n=6,cols=['#e06080','#d05070','#e87090','#c04565','#f08098','#d06078'];
@@ -259,9 +259,17 @@ function initPaintbrush(){
 
   function resize(){
     var rect=c.parentElement.getBoundingClientRect();
-    w=c.width=Math.floor(rect.width);
+    var dpr=window.devicePixelRatio||1;
+    var logicalW=Math.floor(rect.width);
     var cs=getComputedStyle(c);
-    h=c.height=parseInt(cs.height)||420;
+    var logicalH=parseInt(cs.height)||420;
+    w=logicalW;h=logicalH;
+    c.width=Math.floor(logicalW*dpr);
+    c.height=Math.floor(logicalH*dpr);
+    c.style.width=logicalW+'px';
+    c.style.height=logicalH+'px';
+    ctx.setTransform(1,0,0,1,0,0);
+    ctx.scale(dpr,dpr);
     initPuzzle();
   }
 

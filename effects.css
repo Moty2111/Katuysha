@@ -1,14 +1,13 @@
 /* ===== BUTTERFLIES ===== */
-.bfly{position:fixed;z-index:1499;pointer-events:auto;cursor:pointer;opacity:0;transition:opacity .8s;user-select:none;perspective:800px;width:80px;height:70px}
-.bfly.show{opacity:1}
+.bfly{position:fixed;z-index:1400;pointer-events:auto;cursor:pointer;opacity:0;transition:opacity .8s;user-select:none;perspective:800px;width:80px;height:70px;left:var(--bx,50%);top:var(--by,50%);animation:bflyFloat var(--dur,12s) ease-in-out infinite}
+.bfly.show{opacity:.55;pointer-events:none;cursor:default}
+.bfly-inner{position:absolute;inset:0;transform-style:preserve-3d}
 .bfly.bg{position:absolute;left:0;top:0;z-index:0;pointer-events:none;cursor:default;opacity:.55}
 .bfly.bg .bfly-inner{animation:bflyBobBg 8s ease-in-out infinite}
 @keyframes bflyBobBg{0%,100%{transform:translateY(0) rotate(0)}30%{transform:translateY(-6px) rotate(1deg)}70%{transform:translateY(3px) rotate(-1deg)}}
 .bfly.bg .bfly-w{animation:wFlapBg 1.5s ease-in-out infinite alternate}
 @keyframes wFlapBg{0%{transform:rotateY(0deg) scaleX(1)}100%{transform:rotateY(15deg) scaleX(.9)}}
-.bfly-inner{position:absolute;inset:0;transform-style:preserve-3d;animation:bflyBob 5s ease-in-out infinite}
-@keyframes bflyBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
-/* Wings with perspective and detail */
+@keyframes bflyFloat{0%,100%{transform:translate(0,0)}25%{transform:translate(var(--sway,30px),calc(var(--sway,30px)*-0.6))}50%{transform:translate(calc(var(--sway,30px)*-0.4),calc(var(--sway,30px)*0.3))}75%{transform:translate(calc(var(--sway,30px)*0.5),calc(var(--sway,30px)*-0.2))}}
 .bfly-w{position:absolute;top:10px;width:36px;height:44px;transform-style:preserve-3d;animation:wFlap .8s ease-in-out infinite alternate}
 .bfw-l{left:0;transform-origin:right 60%}
 .bfw-r{right:0;transform-origin:left 60%}
@@ -63,6 +62,16 @@
 .stars-container{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
 .star-el{position:absolute;font-size:18px;opacity:0;animation:starF var(--sd,1.5s) linear forwards;pointer-events:none;filter:drop-shadow(0 0 10px rgba(255,215,0,.3))}
 @keyframes starF{0%{opacity:0;transform:translateY(0) translateX(0) scale(.5)}5%{opacity:1}50%{opacity:1}95%{opacity:1}100%{opacity:0;transform:translateY(var(--sy,300px)) translateX(var(--sx,100px)) scale(1)}}
+
+/* ===== REDUCED MOTION ===== */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important}
+  .bfly,.petals,.sparkle,.sparkle-container{display:none!important}
+  .stars-container{opacity:0!important}
+  .balloon-area{display:none!important}
+  #bgC{opacity:0!important}
+  .scroll-progress{display:none!important}
+}
 
 /* ===== GIFT PAGE SPARKLES ===== */
 .gift-sparkle{position:absolute;border-radius:50%;pointer-events:none;opacity:0;animation:sparkleUp linear forwards;z-index:2}
