@@ -523,11 +523,11 @@
 /* ===== WHEEL ===== */
 .wov{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:20px}
 .wov.on{display:flex}
-.wmodal{background:#fffaf7;border-radius:28px;padding:32px 28px 24px;max-width:500px;width:100%;text-align:center;box-shadow:0 24px 70px rgba(0,0,0,.35);animation:mp .6s cubic-bezier(.34,1.56,.64,1)}
+.wmodal{background:#fffaf7;border-radius:28px;padding:32px 28px 24px;max-width:500px;width:100%;text-align:center;box-shadow:0 24px 70px rgba(0,0,0,.35);animation:mp .6s cubic-bezier(.34,1.56,.64,1);box-sizing:border-box;max-height:90dvh;overflow-y:auto}
 @keyframes mp{0%{opacity:0;transform:scale(.7) translateY(30px)}100%{opacity:1;transform:scale(1) translateY(0)}}
 .wmodal h2{font-size:28px;font-weight:900;color:#8b1a2b;margin-bottom:2px;font-family:'Playfair Display',serif}
 .wmodal .ws{font-size:16px;color:#888;margin-bottom:16px;font-weight:500;font-family:'Nunito',sans-serif}
-.ww{position:relative;width:320px;height:320px;margin:0 auto 18px;overflow:hidden}
+.ww{position:relative;margin:0 auto 18px}
 #wcv{width:100%;height:100%;border-radius:50%;box-shadow:0 4px 30px rgba(0,0,0,.1)}
 .wptr{position:absolute;top:-12px;left:50%;margin-left:-14px;width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:28px solid #8b1a2b;z-index:10;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2))}
 .wptr:after{content:'';position:absolute;top:-32px;left:50%;margin-left:-5px;width:10px;height:10px;border-radius:50%;background:#d4a56a;box-shadow:0 0 8px rgba(212,165,106,.4)}

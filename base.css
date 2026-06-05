@@ -11,18 +11,23 @@ body{
 }
 body.dark{overflow:hidden}
 body.modal-open{overflow:hidden;position:fixed;width:100%}
+.ww{width:320px;height:320px}
 
 /* ===== MOBILE TOUCH ENHANCEMENTS ===== */
-.btn,.gb,.toothless-area,#pbC,#wcv,.mb-box,.mb-btn,.scroll-top,.balloon-msg,.modal-close,.close-btn{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;touch-action:manipulation}
+.btn,.gb,.toothless-area,#pbC,#wcv,.mb-box,.mb-btn,.scroll-top,.balloon-msg,.modal-close,.close-btn,
+.snav,.snav-arr,.snav-dot,.sp-btn,.close-btn{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .btn:active{transform:scale(.94)!important}
 .btn.gh:active{background:rgba(196,90,108,.15)!important}
 .gb:active .gb-body,.gb:active .gb-lid{transform:scale(.98)}
+.mb-box:active,.snav:active,.snav-arr:active,.snav-dot:active,.scroll-top:active,.modal-close:active,.close-btn:active,.sp-btn:active{transform:scale(.93)}
 @media(hover:none){
   .btn:hover{transform:none!important;box-shadow:0 4px 18px rgba(196,90,108,.25)!important}
   .btn.gh:hover{background:transparent!important}
   .scroll-top:hover{transform:none!important;background:rgba(255,255,255,.85)!important}
   .scroll-top:hover:before{border-color:#c45a6c!important}
+  .mb-box:hover,.snav:hover,.snav-arr:hover,.snav-dot:hover,.modal-close:hover,.close-btn:hover,.sp-btn:hover{transform:none!important}
 }
+.btn,.mb-box,.snav,.snav-arr,.snav-dot,.scroll-top,.modal-close,.close-btn,.sp-btn{transition:transform .15s,box-shadow .15s}
 
 /* ===== CUSTOM SCROLLBAR ===== */
 ::-webkit-scrollbar{width:8px}
