@@ -32,8 +32,6 @@ if(document.getElementById('giftBox')){(function(){
     document.getElementById('musicBox').classList.remove('gb-hint');
     var ctrl=document.getElementById('mbCtrl');
     if(ctrl)ctrl.classList.remove('show');
-    var r=this.getBoundingClientRect();
-    var cx=r.left+r.width/2,cy=r.top+r.height/2;
     var isTouch='ontouchstart' in window;
     (function tryPlay(){
       if(!window._audioEl)return;
@@ -54,46 +52,47 @@ if(document.getElementById('giftBox')){(function(){
         if(mbP)mbP.textContent='⏸';
       }
     })();
-    // Wobble
+    var self=this;
+    var r=this.getBoundingClientRect();
+    var cx=r.left+r.width/2,cy=r.top+r.height/2;
+    // Wobble + flash on both
     this.classList.add('wobble');
-    // Flash
     var flash=document.createElement('div');
     flash.style.cssText='position:fixed;inset:0;z-index:9998;background:radial-gradient(circle at '+cx+'px '+cy+'px,rgba(255,248,230,.6),transparent 50%);opacity:0;pointer-events:none;transition:opacity .25s';
     document.body.appendChild(flash);
     requestAnimationFrame(function(){flash.style.opacity='1'});
     setTimeout(function(){flash.style.opacity='0';setTimeout(function(){if(flash.parentNode)flash.remove()},300)},350);
-    // Open
-    var self=this;
+    if(isTouch){
+      // Mobile: wobble + flash only, navigate fast (no open class — too heavy)
+      setTimeout(function(){window.navigateTo('inside.html')},700);
+      return;
+    }
+    // Desktop: full animation
     setTimeout(function(){
       self.classList.remove('wobble');
       self.classList.add('open');
-      // Side roses sway (desktop only)
-      if(!isTouch){
-        var srL=document.getElementById('sideRoseL');
-        var srR=document.getElementById('sideRoseR');
-        if(srL){srL.style.transition='transform .8s ease-out';srL.style.transform='scale(1.04) rotate(-1deg)';setTimeout(function(){srL.style.transform='scale(1)'},800)}
-        if(srR){srR.style.transition='transform .8s ease-out';srR.style.transform='scale(1.04) rotate(1deg)';setTimeout(function(){srR.style.transform='scale(1)'},800)}
-        // Butterflies scatter
-        var bflies=document.querySelectorAll('.bfly');
-        for(var bi=0;bi<bflies.length;bi++){
-          (function(b){
-            setTimeout(function(){
-              b.style.transition='opacity .6s,transform .7s cubic-bezier(.34,1.56,.64,1)';
-              b.style.opacity='0';
-              b.style.transform='scale(.3) translateY(-'+(50+Math.random()*60)+'px) rotate('+(10+Math.random()*20)+'deg)';
-            },200+bi*100);
-          })(bflies[bi]);
-        }
-        // Confetti burst
-        if(typeof burstConfetti==='function')burstConfetti(cx,cy-20,40);
+      // Side roses sway
+      var srL=document.getElementById('sideRoseL');
+      var srR=document.getElementById('sideRoseR');
+      if(srL){srL.style.transition='transform .8s ease-out';srL.style.transform='scale(1.04) rotate(-1deg)';setTimeout(function(){srL.style.transform='scale(1)'},800)}
+      if(srR){srR.style.transition='transform .8s ease-out';srR.style.transform='scale(1.04) rotate(1deg)';setTimeout(function(){srR.style.transform='scale(1)'},800)}
+      // Butterflies scatter
+      var bflies=document.querySelectorAll('.bfly');
+      for(var bi=0;bi<bflies.length;bi++){
+        (function(b){
+          setTimeout(function(){
+            b.style.transition='opacity .6s,transform .7s cubic-bezier(.34,1.56,.64,1)';
+            b.style.opacity='0';
+            b.style.transform='scale(.3) translateY(-'+(50+Math.random()*60)+'px) rotate('+(10+Math.random()*20)+'deg)';
+          },200+bi*100);
+        })(bflies[bi]);
       }
+      if(typeof burstConfetti==='function')burstConfetti(cx,cy-20,40);
     },850);
-    // Navigation
-    var navDelay=isTouch?1200:1800;
     setTimeout(function(){
-      if(!isTouch&&typeof burstConfetti==='function')burstConfetti(cx,cy-20,30);
+      if(typeof burstConfetti==='function')burstConfetti(cx,cy-20,30);
       window.navigateTo('inside.html');
-    },navDelay);
+    },1800);
   });
 })();}
 
