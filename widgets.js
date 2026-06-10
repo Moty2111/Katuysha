@@ -34,6 +34,7 @@ if(document.getElementById('giftBox')){(function(){
     if(ctrl)ctrl.classList.remove('show');
     var r=this.getBoundingClientRect();
     var cx=r.left+r.width/2,cy=r.top+r.height/2;
+    var isTouch='ontouchstart' in window;
     (function tryPlay(){
       if(!window._audioEl)return;
       var p=window._audioEl.play();
@@ -82,14 +83,15 @@ if(document.getElementById('giftBox')){(function(){
           },200+bi*100);
         })(bflies[bi]);
       }
-      // Confetti burst
-      if(typeof burstConfetti==='function')burstConfetti(cx,cy-20,40);
+      // Confetti burst (desktop only)
+      if(!isTouch&&typeof burstConfetti==='function')burstConfetti(cx,cy-20,40);
     },850);
     // Navigation
+    var navDelay=isTouch?1200:1800;
     setTimeout(function(){
-      if(typeof burstConfetti==='function')burstConfetti(cx,cy-20,30);
+      if(!isTouch&&typeof burstConfetti==='function')burstConfetti(cx,cy-20,30);
       window.navigateTo('inside.html');
-    },1800);
+    },navDelay);
   });
 })();}
 
