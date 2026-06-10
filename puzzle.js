@@ -163,19 +163,21 @@ function initPaintbrush(){
   }
 
   function hitTest(mx,my){
+    var dpr=window.devicePixelRatio||1;
+    ctx.save();ctx.setTransform(1,0,0,1,0,0);
     for(var i=pieces.length-1;i>=0;i--){
       if(pieces[i].placed)continue;
       var p=pieces[i];
       ctx.beginPath();
       for(var j=0;j<p.pts.length;j++){
         var ox=p.pts[j].x-p.pts[0].x,oy=p.pts[j].y-p.pts[0].y;
-        var px=p.cx+ox,py=p.cy+oy;
+        var px=(p.cx+ox)*dpr,py=(p.cy+oy)*dpr;
         j===0?ctx.moveTo(px,py):ctx.lineTo(px,py);
       }
       ctx.closePath();
-      if(ctx.isPointInPath(mx,my))return i;
+      if(ctx.isPointInPath(mx*dpr,my*dpr)){ctx.restore();return i}
     }
-    return -1;
+    ctx.restore();return -1;
   }
 
   function startDrag(e){
@@ -280,7 +282,8 @@ function initPaintbrush(){
   c.addEventListener('mouseleave',function(e){if(dragPiece>=0)endDrag(e)});
   c.addEventListener('touchstart',function(e){e.preventDefault();startDrag(e)},{passive:false});
   c.addEventListener('touchmove',function(e){e.preventDefault();moveDrag(e)},{passive:false});
-  c.addEventListener('touchend',function(e){endDrag(e)});
+  c.addEventListener('touchend',function(e){if(dragPiece>=0)endDrag(e)});
+  c.addEventListener('touchcancel',function(e){if(dragPiece>=0)endDrag(e)});
   window.addEventListener('resize',resize);
   resize();
 }
