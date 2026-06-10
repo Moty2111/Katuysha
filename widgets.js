@@ -67,24 +67,26 @@ if(document.getElementById('giftBox')){(function(){
     setTimeout(function(){
       self.classList.remove('wobble');
       self.classList.add('open');
-      // Side roses sway
-      var srL=document.getElementById('sideRoseL');
-      var srR=document.getElementById('sideRoseR');
-      if(srL){srL.style.transition='transform .8s ease-out';srL.style.transform='scale(1.04) rotate(-1deg)';setTimeout(function(){srL.style.transform='scale(1)'},800)}
-      if(srR){srR.style.transition='transform .8s ease-out';srR.style.transform='scale(1.04) rotate(1deg)';setTimeout(function(){srR.style.transform='scale(1)'},800)}
-      // Butterflies scatter
-      var bflies=document.querySelectorAll('.bfly');
-      for(var bi=0;bi<bflies.length;bi++){
-        (function(b){
-          setTimeout(function(){
-            b.style.transition='opacity .6s,transform .7s cubic-bezier(.34,1.56,.64,1)';
-            b.style.opacity='0';
-            b.style.transform='scale(.3) translateY(-'+(50+Math.random()*60)+'px) rotate('+(10+Math.random()*20)+'deg)';
-          },200+bi*100);
-        })(bflies[bi]);
+      // Side roses sway (desktop only)
+      if(!isTouch){
+        var srL=document.getElementById('sideRoseL');
+        var srR=document.getElementById('sideRoseR');
+        if(srL){srL.style.transition='transform .8s ease-out';srL.style.transform='scale(1.04) rotate(-1deg)';setTimeout(function(){srL.style.transform='scale(1)'},800)}
+        if(srR){srR.style.transition='transform .8s ease-out';srR.style.transform='scale(1.04) rotate(1deg)';setTimeout(function(){srR.style.transform='scale(1)'},800)}
+        // Butterflies scatter
+        var bflies=document.querySelectorAll('.bfly');
+        for(var bi=0;bi<bflies.length;bi++){
+          (function(b){
+            setTimeout(function(){
+              b.style.transition='opacity .6s,transform .7s cubic-bezier(.34,1.56,.64,1)';
+              b.style.opacity='0';
+              b.style.transform='scale(.3) translateY(-'+(50+Math.random()*60)+'px) rotate('+(10+Math.random()*20)+'deg)';
+            },200+bi*100);
+          })(bflies[bi]);
+        }
+        // Confetti burst
+        if(typeof burstConfetti==='function')burstConfetti(cx,cy-20,40);
       }
-      // Confetti burst (desktop only)
-      if(!isTouch&&typeof burstConfetti==='function')burstConfetti(cx,cy-20,40);
     },850);
     // Navigation
     var navDelay=isTouch?1200:1800;
@@ -1100,73 +1102,99 @@ if(spBtn)spBtn.addEventListener('click',function(){window.spinWheel()});}
   var targetHeadY=0,mouseX=0,mouseInside=false;
   var userRotY=0,prevMouseX=0,isDragging=false,clickMoved=false;
 
-  if(typeof THREE.GLTFLoader==='undefined'){
-    container.innerHTML='<div style="padding:20px;text-align:center;color:#999">Загрузка...</div>';
-    return;
+  function ensureGLTFLoader(cb){
+    if(typeof THREE.GLTFLoader!=='undefined'){cb();return}
+    var s=document.createElement('script');
+    s.src='https://unpkg.com/three@0.128.0/examples/js/loaders/GLTFLoader.js';
+    s.onload=function(){cb()};
+    s.onerror=function(){
+      container.innerHTML='<div style="padding:20px;text-align:center;color:#999;font-family:Nunito,sans-serif;font-size:14px">😔 Не удалось загрузить 3D-модуль<br><span style="font-size:11px;color:#aaa">Проверьте соединение</span></div>';
+    };
+    document.head.appendChild(s);
   }
 
-  var loader=new THREE.GLTFLoader();
+  var loader;
   var loadEl=document.createElement('div');
   loadEl.style.cssText='position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:2;pointer-events:none;background:rgba(255,255,255,.45);border-radius:20px;transition:opacity .6s;font-family:Nunito,sans-serif';
-  var loadPct=0;
-  loadEl.innerHTML='<div style="font-size:14px;color:#8b1a2b;font-weight:700;text-align:center;line-height:1.6">🐉 Загрузка Беззубика...<br><span style="font-size:12px;color:#c45a6c" id="tlLoadPct">0%</span></div>';
-  container.appendChild(loadEl);
-  var modelLoaded=false;
-  function loadModel(){
+  loadEl.innerHTML='<div style="font-size:14px;color:#8b1a2b;font-weight:700;text-align:center;line-height:1.6">🐉 Беззубик<br><span style="font-size:11px;color:#c45a6c">загружается...</span></div>';
+  var modelLoaded=false,loadAttempts=0;
+
+  function startLoad(){
     if(modelLoaded)return;
     modelLoaded=true;
-    var pctEl=document.getElementById('tlLoadPct');
-    loader.load('беззубик.glb',function(gltf){
-      model=gltf.scene;
-      model.scale.set(0.3,0.3,0.3);
-      model.position.y=0.35;
-      model.rotation.x=-0.15;
-      scene.add(model);
-      var eyeMats=[];
-      model.traverse(function(c){
-        var n=c.name?c.name.toLowerCase():'';
-        if(c.isMesh&&c.material){
-          var mats=Array.isArray(c.material)?c.material:[c.material];
-          mats.forEach(function(m){
-            if(m.emissive&&(m.emissive.r>0||m.emissive.g>0||m.emissive.b>0))eyeMats.push(m);
-          });
+    container.appendChild(loadEl);
+    ensureGLTFLoader(function(){
+      loader=new THREE.GLTFLoader();
+      var pctEl=document.getElementById('tlLoadPct');
+      if(!pctEl){
+        loadEl.innerHTML='<div style="font-size:14px;color:#8b1a2b;font-weight:700;text-align:center;line-height:1.6">🐉 Загрузка Беззубика...<br><span style="font-size:12px;color:#c45a6c" id="tlLoadPct">0%</span></div>';
+        pctEl=document.getElementById('tlLoadPct');
+      }
+      var loadPct=0;
+      loader.load('беззубик.glb',function(gltf){
+        model=gltf.scene;
+        model.scale.set(0.3,0.3,0.3);
+        model.position.y=0.35;
+        model.rotation.x=-0.15;
+        scene.add(model);
+        var eyeMats=[];
+        model.traverse(function(c){
+          var n=c.name?c.name.toLowerCase():'';
+          if(c.isMesh&&c.material){
+            var mats=Array.isArray(c.material)?c.material:[c.material];
+            mats.forEach(function(m){
+              if(m.emissive&&(m.emissive.r>0||m.emissive.g>0||m.emissive.b>0))eyeMats.push(m);
+            });
+          }
+          if(n.indexOf('wing')!==-1||n.indexOf('крыл')!==-1){
+            if(!wingL&&c.position.x<0)wingL=c;
+            if(!wingR&&c.position.x>0)wingR=c;
+          }
+          if(!headB&&(n.indexOf('head')!==-1||n.indexOf('голов')!==-1))headB=c;
+        });
+        scene.userData.eyeMats=eyeMats;
+        if(!headB&&model)headB=model;
+        if(gltf.animations&&gltf.animations.length>0){
+          mixer=new THREE.AnimationMixer(model);
+          gltf.animations.forEach(function(clip){mixer.clipAction(clip).play();});
         }
-        if(n.indexOf('wing')!==-1||n.indexOf('крыл')!==-1){
-          if(!wingL&&c.position.x<0)wingL=c;
-          if(!wingR&&c.position.x>0)wingR=c;
+        loadEl.style.opacity='0';
+        setTimeout(function(){if(loadEl.parentNode)loadEl.remove()},600);
+        modelLoaded=true;
+      },function(xhr){
+        if(xhr.total){
+          var pct=Math.round(xhr.loaded/xhr.total*100);
+          if(pct!==loadPct){
+            loadPct=pct;
+            if(pctEl)pctEl.textContent=pct+'%';
+          }
         }
-        if(!headB&&(n.indexOf('head')!==-1||n.indexOf('голов')!==-1))headB=c;
+      },function(err){
+        console.error('Ошибка загрузки Беззубика:',err);
+        loadAttempts++;
+        modelLoaded=false;
+        if(loadAttempts<2){
+          loadEl.innerHTML='<div style="font-size:13px;color:#c45a6c;font-weight:600;text-align:center;line-height:1.6">🐉 Повторная попытка...<br><span style="font-size:11px;color:#999">'+(loadAttempts)+'/2</span></div>';
+          setTimeout(startLoad,2000);
+        }else{
+          loadEl.innerHTML='<div style="font-size:13px;color:#999;font-weight:600;text-align:center;line-height:1.6">😔 Не удалось загрузить<br><button onclick="location.reload()" style="margin-top:8px;padding:6px 18px;border:2px solid #c45a6c;border-radius:20px;background:transparent;color:#c45a6c;font-size:12px;cursor:pointer">🔄 Повторить</button></div>';
+          loadEl.style.pointerEvents='auto';
+        }
       });
-      scene.userData.eyeMats=eyeMats;
-      if(!headB&&model)headB=model;
-      if(gltf.animations&&gltf.animations.length>0){
-        mixer=new THREE.AnimationMixer(model);
-        gltf.animations.forEach(function(clip){mixer.clipAction(clip).play();});
-      }
-      console.log('Беззубик загружен');
-      loadEl.style.opacity='0';
-      setTimeout(function(){if(loadEl.parentNode)loadEl.remove()},600);
-    },function(xhr){
-      if(xhr.total){
-        var pct=Math.round(xhr.loaded/xhr.total*100);
-        if(pct%10===0||pct!==loadPct){
-          loadPct=pct;
-          if(pctEl)pctEl.textContent=pct+'%';
-        }
-      }
-    },function(err){
-      console.error('Ошибка загрузки Беззубика:',err);
-      loadEl.innerHTML='<div style="font-size:14px;color:#999;font-weight:600;text-align:center">😔 Не удалось загрузить<br><span style="font-size:11px">Проверьте соединение</span></div>';
     });
   }
+
+  // Load trigger
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(entries){
       entries.forEach(function(e){
-        if(e.isIntersecting){loadModel();io.unobserve(container)}
+        if(e.isIntersecting){startLoad();io.unobserve(container)}
       });
     },{rootMargin:'300px'});
     io.observe(container);
-  }else{loadModel()}
+    // Fallback: if user doesn't scroll within 8s, load anyway
+    setTimeout(function(){if(!modelLoaded){try{io.unobserve(container)}catch(ex){}startLoad()}},8000);
+  }else{startLoad()}
 
   function animate(){
     requestAnimationFrame(animate);
