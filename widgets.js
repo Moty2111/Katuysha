@@ -26,41 +26,6 @@ if(document.getElementById('giftBox')){(function(){
   gbWrap.classList.add('show');
   initMusic();
 
-  function giftSparkles(cx,cy,s){
-    var spCount=s||45;
-    var spShapes=['circle','star','diamond','heart'];
-    for(var i=0;i<spCount;i++){
-      (function(){
-        var el=document.createElement('div');
-        var shape=spShapes[i%spShapes.length];
-        var sz=2+Math.random()*6;
-        var clr=i%3===0?'#fff8e0':'#ffd700';
-        if(shape==='star'){
-          el.textContent='✦';
-          el.style.cssText='position:fixed;pointer-events:none;z-index:9999;left:'+cx+'px;top:'+cy+'px;font-size:'+(8+Math.random()*10)+'px;color:'+clr+';text-shadow:0 0 6px '+clr+';opacity:1';
-        }else if(shape==='heart'){
-          el.textContent='♥';
-          el.style.cssText='position:fixed;pointer-events:none;z-index:9999;left:'+cx+'px;top:'+cy+'px;font-size:'+(7+Math.random()*8)+'px;color:#ff6b8a;text-shadow:0 0 6px rgba(255,107,138,.5);opacity:1';
-        }else if(shape==='diamond'){
-          el.style.cssText='position:fixed;pointer-events:none;z-index:9999;left:'+cx+'px;top:'+cy+'px;width:'+sz+'px;height:'+sz+'px;background:'+clr+';transform:rotate(45deg);opacity:1;box-shadow:0 0 4px '+clr;
-        }else{
-          el.style.cssText='position:fixed;pointer-events:none;z-index:9999;left:'+cx+'px;top:'+cy+'px;width:'+sz+'px;height:'+sz+'px;border-radius:50%;background:radial-gradient(circle,'+clr+',#ffd700);opacity:1;box-shadow:0 0 6px '+clr;
-        }
-        document.body.appendChild(el);
-        var ang=Math.random()*Math.PI*2;
-        var dist=40+Math.random()*280;
-        var tx=Math.cos(ang)*dist;
-        var ty=Math.sin(ang)*dist-120;
-        var rd=400+Math.random()*800;
-        el.animate([
-          {transform:'translate(0,0) rotate(0deg) scale(1)',opacity:1},
-          {transform:'translate('+tx+'px,'+ty+'px) rotate('+rd+'deg) scale('+(0.1+Math.random()*0.4)+')',opacity:0}
-        ],{duration:1000+Math.random()*1400,easing:'cubic-bezier(.25,.46,.45,.94)',fill:'forwards'});
-        setTimeout(function(){if(el.parentNode)el.remove()},3000);
-      })();
-    }
-  }
-
   gb.addEventListener('click',function(e){
     if(opened)return;
     opened=true;
@@ -88,15 +53,15 @@ if(document.getElementById('giftBox')){(function(){
         if(mbP)mbP.textContent='⏸';
       }
     })();
-    // Phase 1 — Wobble (850ms)
+    // Wobble
     this.classList.add('wobble');
-    // Light flash at start of wobble
+    // Flash
     var flash=document.createElement('div');
     flash.style.cssText='position:fixed;inset:0;z-index:9998;background:radial-gradient(circle at '+cx+'px '+cy+'px,rgba(255,248,230,.6),transparent 50%);opacity:0;pointer-events:none;transition:opacity .25s';
     document.body.appendChild(flash);
     requestAnimationFrame(function(){flash.style.opacity='1'});
     setTimeout(function(){flash.style.opacity='0';setTimeout(function(){if(flash.parentNode)flash.remove()},300)},350);
-    // Phase 2 — Open (after wobble)
+    // Open
     var self=this;
     setTimeout(function(){
       self.classList.remove('wobble');
@@ -117,119 +82,14 @@ if(document.getElementById('giftBox')){(function(){
           },200+bi*100);
         })(bflies[bi]);
       }
-      // Flash again on open
-      var flash2=document.createElement('div');
-      flash2.style.cssText='position:fixed;inset:0;z-index:9998;background:radial-gradient(circle at '+cx+'px '+cy+'px,rgba(255,248,230,.9),rgba(255,215,0,.15) 40%,transparent 65%);opacity:0;pointer-events:none;transition:opacity .2s';
-      document.body.appendChild(flash2);
-      requestAnimationFrame(function(){flash2.style.opacity='1'});
-      setTimeout(function(){flash2.style.opacity='0';setTimeout(function(){if(flash2.parentNode)flash2.remove()},300)},350);
-      // Ring ripples
-      for(var ri=0;ri<3;ri++){
-        (function(d){
-          setTimeout(function(){
-            var ring=document.createElement('div');
-            ring.className='gb-ring';
-            ring.style.left=cx+'px';ring.style.top=cy+'px';
-            document.body.appendChild(ring);
-            setTimeout(function(){if(ring.parentNode)ring.remove()},1800);
-          },d);
-        })(ri*120);
-      }
-      // Golden dust motes
-      for(var di=0;di<30;di++){
-        (function(){
-          var dust=document.createElement('div');
-          dust.className='gb-dust';
-          var dx=cx+(Math.random()-0.5)*180;
-          var dy=cy-20+(Math.random()-0.5)*100;
-          dust.style.left=dx+'px';dust.style.top=dy+'px';
-          dust.style.width=dust.style.height=(2+Math.random()*5)+'px';
-          dust.style.animationDuration=(1.8+Math.random()*1.8)+'s';
-          dust.style.animationDelay=(Math.random()*1.2)+'s';
-          document.body.appendChild(dust);
-          setTimeout(function(){if(dust.parentNode)dust.remove()},5000);
-        })();
-      }
-      // Floating music notes
-      var notes=['♪','♫','♩','♬'];
-      for(var ni=0;ni<8;ni++){
-        (function(){
-          var note=document.createElement('div');
-          note.className='gb-note';
-          var nx=cx+(Math.random()-0.5)*100;
-          var ny=cy-20+Math.random()*60;
-          note.style.left=nx+'px';note.style.top=ny+'px';
-          note.textContent=notes[ni%notes.length];
-          note.style.animationDelay=(0.3+Math.random()*0.8)+'s';
-          document.body.appendChild(note);
-          setTimeout(function(){if(note.parentNode)note.remove()},5000);
-        })();
-      }
-      // Star burst particles
-      for(var si=0;si<12;si++){
-        (function(){
-          var star=document.createElement('div');
-          star.className='gb-star';
-          var sx=cx+(Math.random()-0.5)*60;
-          var sy=cy-20+(Math.random()-0.5)*40;
-          star.style.left=sx+'px';star.style.top=sy+'px';
-          star.style.animationDelay=(Math.random()*0.5)+'s';
-          document.body.appendChild(star);
-          setTimeout(function(){if(star.parentNode)star.remove()},2000);
-        })();
-      }
-      // Circular golden ring burst
-      for(var cbi=0;cbi<24;cbi++){
-        (function(){
-          var cb=document.createElement('div');
-          var ang=cbi/24*Math.PI*2;
-          var dist=60+Math.random()*40;
-          var sz=3+Math.random()*4;
-          cb.style.cssText='position:fixed;z-index:9996;pointer-events:none;left:'+(cx+Math.cos(ang)*dist)+'px;top:'+(cy+Math.sin(ang)*dist)+'px;width:'+sz+'px;height:'+sz+'px;border-radius:50%;background:radial-gradient(circle,#fff8e0,#ffd700);opacity:1;box-shadow:0 0 6px rgba(255,215,0,.5)';
-          document.body.appendChild(cb);
-          var rd=200+Math.random()*300;
-          cb.animate([
-            {transform:'translate(0,0) scale(1)',opacity:1},
-            {transform:'translate('+(Math.cos(ang)*(40+Math.random()*60))+','+(Math.sin(ang)*(40+Math.random()*60))+') scale('+(0.2+Math.random()*0.3)+')',opacity:0}
-          ],{duration:800+Math.random()*600,easing:'cubic-bezier(.25,.46,.45,.94)',fill:'forwards'});
-          setTimeout(function(){if(cb.parentNode)cb.remove()},2000);
-        })();
-      }
-      // Glitter trail — follow the bow trajectory
-      for(var gi=0;gi<20;gi++){
-        (function(){
-          var gl=document.createElement('div');
-          gl.className='gb-glitter';
-          var ang=gi/20*Math.PI*2;
-          var dist=40+Math.random()*80;
-          gl.style.left=(cx+Math.cos(ang)*dist)+'px';
-          gl.style.top=(cy-10+Math.sin(ang)*dist)+'px';
-          gl.style.animationDelay=(0.4+Math.random()*0.6)+'s';
-          gl.style.width=gl.style.height=(2+Math.random()*4)+'px';
-          document.body.appendChild(gl);
-          setTimeout(function(){if(gl.parentNode)gl.remove()},1800);
-        })();
-      }
+      // Confetti burst
+      if(typeof burstConfetti==='function')burstConfetti(cx,cy-20,40);
     },850);
-    // Phase 3 — Particles (after open triggers)
+    // Navigation
     setTimeout(function(){
-      burstConfetti(cx,cy-20,65);
-    },950);
-    setTimeout(function(){
-      giftSparkles(cx,cy-10,55);
-    },1050);
-    setTimeout(function(){
-      burstConfetti(cx+50,cy-50,35);
-      burstConfetti(cx-50,cy-20,30);
-    },1250);
-    setTimeout(function(){
-      giftSparkles(cx-20,cy+10,30);
-      burstConfetti(cx-30,cy-40,25);
-      burstConfetti(cx+30,cy-10,25);
-    },1550);
-    setTimeout(function(){
+      if(typeof burstConfetti==='function')burstConfetti(cx,cy-20,30);
       window.navigateTo('inside.html');
-    },2500);
+    },1800);
   });
 })();}
 
@@ -1244,40 +1104,67 @@ if(spBtn)spBtn.addEventListener('click',function(){window.spinWheel()});}
   }
 
   var loader=new THREE.GLTFLoader();
-  loader.load('беззубик.glb',function(gltf){
-    model=gltf.scene;
-    model.scale.set(0.3,0.3,0.3);
-    model.position.y=0.35;
-    model.rotation.x=-0.15;
-    scene.add(model);
-    var eyeMats=[];
-    model.traverse(function(c){
-      var n=c.name?c.name.toLowerCase():'';
-      if(c.isMesh&&c.material){
-        var mats=Array.isArray(c.material)?c.material:[c.material];
-        mats.forEach(function(m){
-          if(m.emissive&&(m.emissive.r>0||m.emissive.g>0||m.emissive.b>0))eyeMats.push(m);
-        });
+  var loadEl=document.createElement('div');
+  loadEl.style.cssText='position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:2;pointer-events:none;background:rgba(255,255,255,.45);border-radius:20px;transition:opacity .6s;font-family:Nunito,sans-serif';
+  var loadPct=0;
+  loadEl.innerHTML='<div style="font-size:14px;color:#8b1a2b;font-weight:700;text-align:center;line-height:1.6">🐉 Загрузка Беззубика...<br><span style="font-size:12px;color:#c45a6c" id="tlLoadPct">0%</span></div>';
+  container.appendChild(loadEl);
+  var modelLoaded=false;
+  function loadModel(){
+    if(modelLoaded)return;
+    modelLoaded=true;
+    var pctEl=document.getElementById('tlLoadPct');
+    loader.load('беззубик.glb',function(gltf){
+      model=gltf.scene;
+      model.scale.set(0.3,0.3,0.3);
+      model.position.y=0.35;
+      model.rotation.x=-0.15;
+      scene.add(model);
+      var eyeMats=[];
+      model.traverse(function(c){
+        var n=c.name?c.name.toLowerCase():'';
+        if(c.isMesh&&c.material){
+          var mats=Array.isArray(c.material)?c.material:[c.material];
+          mats.forEach(function(m){
+            if(m.emissive&&(m.emissive.r>0||m.emissive.g>0||m.emissive.b>0))eyeMats.push(m);
+          });
+        }
+        if(n.indexOf('wing')!==-1||n.indexOf('крыл')!==-1){
+          if(!wingL&&c.position.x<0)wingL=c;
+          if(!wingR&&c.position.x>0)wingR=c;
+        }
+        if(!headB&&(n.indexOf('head')!==-1||n.indexOf('голов')!==-1))headB=c;
+      });
+      scene.userData.eyeMats=eyeMats;
+      if(!headB&&model)headB=model;
+      if(gltf.animations&&gltf.animations.length>0){
+        mixer=new THREE.AnimationMixer(model);
+        gltf.animations.forEach(function(clip){mixer.clipAction(clip).play();});
       }
-      if(n.indexOf('wing')!==-1||n.indexOf('крыл')!==-1){
-        if(!wingL&&c.position.x<0)wingL=c;
-        if(!wingR&&c.position.x>0)wingR=c;
+      console.log('Беззубик загружен');
+      loadEl.style.opacity='0';
+      setTimeout(function(){if(loadEl.parentNode)loadEl.remove()},600);
+    },function(xhr){
+      if(xhr.total){
+        var pct=Math.round(xhr.loaded/xhr.total*100);
+        if(pct%10===0||pct!==loadPct){
+          loadPct=pct;
+          if(pctEl)pctEl.textContent=pct+'%';
+        }
       }
-      if(!headB&&(n.indexOf('head')!==-1||n.indexOf('голов')!==-1))headB=c;
+    },function(err){
+      console.error('Ошибка загрузки Беззубика:',err);
+      loadEl.innerHTML='<div style="font-size:14px;color:#999;font-weight:600;text-align:center">😔 Не удалось загрузить<br><span style="font-size:11px">Проверьте соединение</span></div>';
     });
-    scene.userData.eyeMats=eyeMats;
-    if(!headB&&model)headB=model;
-    if(gltf.animations&&gltf.animations.length>0){
-      mixer=new THREE.AnimationMixer(model);
-      gltf.animations.forEach(function(clip){mixer.clipAction(clip).play();});
-    }
-    console.log('Беззубик загружен');
-  },function(xhr){
-    if(xhr.total){
-      var pct=Math.round(xhr.loaded/xhr.total*100);
-      if(pct%25===0)console.log('Беззубик загружен: '+pct+'%');
-    }
-  },function(err){console.error('Ошибка загрузки Беззубика:',err);});
+  }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){loadModel();io.unobserve(container)}
+      });
+    },{rootMargin:'300px'});
+    io.observe(container);
+  }else{loadModel()}
 
   function animate(){
     requestAnimationFrame(animate);
