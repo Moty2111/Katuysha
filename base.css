@@ -43,12 +43,12 @@ body.modal-open{overflow:hidden;position:fixed;width:100%}
 
 /* ===== SCROLL TOP BUTTON ===== */
 @keyframes sTopShow{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.scroll-top{position:fixed;bottom:28px;right:20px;z-index:900;width:44px;height:44px;border:none;border-radius:50%;background:rgba(255,255,255,.85);backdrop-filter:blur(8px);cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 2px 16px rgba(0,0,0,.08);transition:all .3s cubic-bezier(.34,1.56,.64,1);padding:0}
+.scroll-top{position:fixed;bottom:28px;left:20px;z-index:900;width:44px;height:44px;border:none;border-radius:50%;background:rgba(255,255,255,.85);backdrop-filter:blur(8px);cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 2px 16px rgba(0,0,0,.08);transition:all .3s cubic-bezier(.34,1.56,.64,1);padding:0}
 .scroll-top.show{display:flex;animation:sTopShow .4s cubic-bezier(.34,1.56,.64,1) forwards}
 .scroll-top:before{content:'';width:10px;height:10px;border-left:2.5px solid #c45a6c;border-top:2.5px solid #c45a6c;transform:rotate(45deg);margin-top:4px;transition:border-color .3s}
 .scroll-top:hover{transform:scale(1.1);background:#fff;box-shadow:0 4px 24px rgba(196,90,108,.2)}
 .scroll-top:hover:before{border-color:#d4a56a}
-@media(max-width:560px){.scroll-top{bottom:16px;right:12px;width:38px;height:38px}}
+@media(max-width:560px){.scroll-top{bottom:16px;left:12px;width:38px;height:38px}}
 
 /* ===== PAGE TRANSITION OVERLAY ===== */
 .page-transition{position:fixed;inset:0;z-index:9999;background:#1a0a0e;opacity:0;pointer-events:none;transition:opacity .45s ease}
