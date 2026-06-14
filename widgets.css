@@ -778,8 +778,16 @@
   .snav-next{right:-10px}
 }
 
-/* ===== MOBILE: simplified gift box open (touch devices) ===== */
+/* ===== MOBILE: shorter wobble + simplified gift box open (touch devices) ===== */
 @media(hover:none){
+  .gb.wobble{animation:gbWobbleMobile .5s ease-in-out}
+  @keyframes gbWobbleMobile{
+    0%{transform:scale(1) rotate(0)}
+    15%{transform:scale(1.01) rotate(-.5deg)}
+    35%{transform:scale(1.005) rotate(.4deg)}
+    55%{transform:scale(1.01) rotate(-.3deg)}
+    75%{transform:scale(1)}/*tap*/100%{transform:scale(1) rotate(0)}
+  }
   .gb.open .gb-lid{
     animation:lidFlyMobile .8s cubic-bezier(.22,1,.36,1) forwards;
     transform-origin:center bottom
