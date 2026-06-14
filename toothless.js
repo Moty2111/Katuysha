@@ -194,6 +194,11 @@
     container.appendChild(loadEl);
     ensureGLTFLoader(function(){
       var loader=new THREE.GLTFLoader();
+      if(typeof THREE.DRACOLoader!=='undefined'){
+        var dracoLoader=new THREE.DRACOLoader();
+        dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.4.1/');
+        loader.setDRACOLoader(dracoLoader);
+      }
       var pctEl=document.getElementById('tlLoadPct');
       if(!pctEl){
         loadEl.innerHTML='<div style="font-size:14px;color:#8b1a2b;font-weight:700;text-align:center;line-height:1.6">🐉 Загрузка Беззубика...<br><span style="font-size:12px;color:#c45a6c" id="tlLoadPct">0%</span></div>';
