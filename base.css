@@ -306,6 +306,38 @@ body.modal-open{overflow:hidden;position:fixed;width:100%}
   .sslider-stage{min-height:240px}.scard{padding:20px 14px;min-height:240px}.scard-ttl{font-size:20px}.scard-icon{font-size:38px}.scard-desc{font-size:12px}.snav{width:28px;height:28px}.snav-arr{width:28px;height:28px}.snav-arr:before{width:9px;height:9px;margin:-4.5px 0 0 -3px}.snav-shadow{width:28px;height:28px}.snav-prev{left:-2px}.snav-next{right:-2px}.snav-dots{gap:4px;margin-top:8px}.snav-count{font-size:11px}
 }
 
+/* ===== MOBILE MUSIC BUTTON EFFECTS ===== */
+@media(max-width:640px){
+  .mb-box.playing{animation:mbMobPulse 1.6s ease-in-out infinite}
+  .mb-box.playing:before{
+    content:'';
+    position:absolute;inset:-4px;border-radius:50%;z-index:-1;
+    background:conic-gradient(from 0deg,#e8a0b4,#d4a56a,#ff6b8a,#c45a6c,#e8a0b4);
+    animation:mbMobSpin 2s linear infinite;
+    mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#fff calc(100% - 2px));
+    -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#fff calc(100% - 2px));
+    pointer-events:none
+  }
+  .mb-box.playing:after{
+    animation:mbMobIcon 1.6s ease-in-out infinite
+  }
+}
+@media(max-width:420px){
+  .mb-box.playing:before{inset:-3px;mask:radial-gradient(farthest-side,transparent calc(100% - 2.5px),#fff calc(100% - 1.5px));-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2.5px),#fff calc(100% - 1.5px))}
+}
+@media(max-width:360px){
+  .mb-box.playing:before{inset:-2px;mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#fff calc(100% - 1px));-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#fff calc(100% - 1px))}
+}
+@keyframes mbMobPulse{
+  0%,100%{box-shadow:0 3px 12px rgba(196,90,108,.5)}
+  50%{box-shadow:0 3px 25px rgba(196,90,108,.8),0 0 45px rgba(232,160,180,.4),0 0 70px rgba(212,165,106,.2)}
+}
+@keyframes mbMobSpin{to{transform:rotate(360deg)}}
+@keyframes mbMobIcon{
+  0%,100%{transform:translate(-50%,-50%) scale(1)}
+  50%{transform:translate(-50%,-50%) scale(1.12)}
+}
+
 /* ===== SAKURA PETALS ===== */
 .petals{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
 .petal{position:absolute;top:-10vh;width:16px;height:16px;border-radius:80% 0 80% 0;background:radial-gradient(ellipse at 30% 30%,rgba(255,200,210,.7),rgba(230,160,175,.5),rgba(200,140,160,.3));opacity:0;animation:petalFall linear infinite}
