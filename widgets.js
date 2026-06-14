@@ -765,7 +765,7 @@ b.innerHTML='<div class="balloon-body" style="animation:wobble '+(6+Math.random(
     var hitCandle=false;
     for(var hi=0;hi<intersects.length;hi++){
       var obj=intersects[hi].object;
-      if(obj===candle||obj===flame||obj===midFlame||obj===coreFlame||obj===wick){
+      if(obj===candle||obj===flame||obj===midFlame||obj===coreFlame||obj===wick1||obj===wick2){
         hitCandle=true;break;
       }
     }
@@ -1121,15 +1121,8 @@ if(spBtn)spBtn.addEventListener('click',function(){window.spinWheel()});}
   var targetHeadY=0,mouseX=0,mouseInside=false;
   var userRotY=0,prevMouseX=0,isDragging=false,clickMoved=false;
 
-  if('ontouchstart' in window){
-    // Mobile: forest scene only — GLB model (65.9MB) skipped
-    var ph=document.createElement('div');
-    ph.style.cssText='position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:2;pointer-events:none;background:rgba(255,255,255,.3);border-radius:20px;font-family:Nunito,sans-serif;text-align:center';
-    ph.innerHTML='<div style="font-size:24px;margin-bottom:2px">🐉</div><div style="font-size:13px;color:#8b1a2b;font-weight:700;line-height:1.5">Беззубик отдыхает<br><span style="font-size:11px;color:#c45a6c;font-weight:400">Попробуй на компьютере!</span></div>';
-    container.appendChild(ph);
-  }else{
-    // Desktop: lazy load GLB model
-    function ensureGLTFLoader(cb){
+  // Lazy load GLB model (all devices)
+  function ensureGLTFLoader(cb){
       if(typeof THREE.GLTFLoader!=='undefined'){cb();return}
       var s=document.createElement('script');
       s.src='https://unpkg.com/three@0.128.0/examples/js/loaders/GLTFLoader.js';
@@ -1212,9 +1205,8 @@ if(spBtn)spBtn.addEventListener('click',function(){window.spinWheel()});}
         });
       },{rootMargin:'300px'});
       io.observe(container);
-      setTimeout(function(){if(!modelLoaded){try{io.unobserve(container)}catch(ex){}startLoad()}},8000);
+    setTimeout(function(){if(!modelLoaded){try{io.unobserve(container)}catch(ex){}startLoad()}},8000);
     }else{startLoad()}
-  }
 
   function animate(){
     requestAnimationFrame(animate);

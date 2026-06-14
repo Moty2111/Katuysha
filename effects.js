@@ -142,7 +142,6 @@ if(document.getElementById('bgC')){(function(){
 (function(){
   var cont=document.getElementById('starsContainer');
   if(!cont)return;
-  var stars=[];
   var starCount=Math.floor(window.innerWidth/30)+8;
   for(var i=0;i<starCount;i++){
     var el=document.createElement('div');
@@ -154,7 +153,6 @@ if(document.getElementById('bgC')){(function(){
     var drift=Math.random()*80-40;
     el.style.cssText='left:'+l+'%;width:'+sz+'px;height:'+sz+'px;animation-duration:'+dur+'s;animation-delay:'+del+'s;--drift:'+drift+'px';
     cont.appendChild(el);
-    stars.push({el:el,l:l,dur:dur,del:del});
   }
 })();
 
