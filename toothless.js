@@ -14,9 +14,9 @@
   ctx.fillStyle=grd;ctx.fillRect(0,0,2,512);
   scene.background=new THREE.CanvasTexture(canvas);
 
-  var camera=new THREE.PerspectiveCamera(30,w/h,0.1,100);
-  camera.position.set(2.8,1.5,4);
-  camera.lookAt(0,0.55,0);
+  var camera=new THREE.PerspectiveCamera(40,w/h,0.1,100);
+  camera.position.set(0,1.2,5.5);
+  camera.lookAt(0,0.6,0);
 
   var renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
   renderer.setSize(w,h);
@@ -232,9 +232,9 @@
       loader.load('беззубик.glb',function(gltf){
         clearInterval(stallTimer);
         model=gltf.scene;
-        model.scale.set(0.3,0.3,0.3);
-        model.position.y=0.35;
-        model.rotation.x=-0.15;
+        model.scale.set(0.38,0.38,0.38);
+        model.position.y=0.4;
+        model.rotation.x=-0.1;
         scene.add(model);
         var eyeMats=[];
         model.traverse(function(c){
@@ -297,7 +297,7 @@
     idlePhase+=delta;
     if(mixer)mixer.update(delta);
     if(model){
-      model.position.y=0.35+Math.sin(idlePhase*0.9)*0.025;
+      model.position.y=0.4+Math.sin(idlePhase*0.9)*0.025;
       model.rotation.z=Math.sin(idlePhase*0.4)*0.015;
       model.rotation.y=Math.PI+userRotY+Math.sin(idlePhase*0.25)*0.08;
       if(wingL)wingL.rotation.z=-0.05+Math.sin(idlePhase*2.5)*0.04;
