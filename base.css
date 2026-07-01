@@ -1,4 +1,4 @@
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 html{scroll-behavior:smooth;overflow-x:clip}
 body{
   font-family:'Playfair Display','Nunito',sans-serif;
@@ -15,7 +15,7 @@ body.modal-open{overflow:hidden;position:fixed;width:100%}
 
 /* ===== MOBILE TOUCH ENHANCEMENTS ===== */
 .btn,.gb,.toothless-area,.mb-box,.mb-btn,.scroll-top,.balloon-msg,.modal-close,.close-btn,
-.snav,.snav-arr,.snav-dot,.sp-btn,.close-btn{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.snav,.snav-arr,.snav-dot,.sp-btn,.close-btn,.gb-hint,.candle-count,.balloon-msg{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .btn:active{transform:scale(.94)!important}
 .btn.gh:active{background:rgba(196,90,108,.15)!important}
 .gb:active .gb-body,.gb:active .gb-lid{transform:scale(.98)}
