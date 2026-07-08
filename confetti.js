@@ -31,6 +31,13 @@ function burstConfetti(cx,cy,count){
     setTimeout(function(){pt.classList.remove('active')},80);
   }
   window.navigateTo=function(url){
+    if(window._audioEl){
+      try{
+        sessionStorage.setItem('audioTime',window._audioEl.currentTime);
+        sessionStorage.setItem('audioVolume',window._audioEl.volume);
+        sessionStorage.setItem('audioPlaying',window._audioEl.paused?'0':'1');
+      }catch(e){}
+    }
     pt.classList.add('active');
     setTimeout(function(){window.location.href=url},420);
   };
