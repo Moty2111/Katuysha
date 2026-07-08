@@ -963,6 +963,17 @@ function initMusic(){
   musicBox.classList.add('show');
   audio.volume=0.5;
 
+  // Restore audio state from cross-page navigation
+  var savedTime=parseFloat(sessionStorage.getItem('audioTime'));
+  var savedVol=parseFloat(sessionStorage.getItem('audioVolume'));
+  var wasPlaying=sessionStorage.getItem('audioPlaying')==='1';
+  if(savedTime>0)audio.currentTime=savedTime;
+  if(savedVol>0){audio.volume=savedVol;mbVol.value=savedVol;updateVolSlider(savedVol)}
+  sessionStorage.removeItem('audioTime');
+  sessionStorage.removeItem('audioVolume');
+  sessionStorage.removeItem('audioPlaying');
+  if(wasPlaying)_userGestured=true;
+
   // Notes
   for(var i=0;i<5;i++){
     var note=document.createElement('div');
